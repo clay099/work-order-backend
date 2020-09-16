@@ -4,6 +4,24 @@ Capstone Project 2 - peer-to-peer work order platform
 ## Goals
 This application will be split into two parts a front-end for end users and a back-end to store the database.  
 
+The project is a peer-to-peer outsourcing program which matches general users with qualified tradesmen to complete real-world jobs. 
+
+Users will be able to post jobs that they are looking to have completed. 
+Tradesmen will be able to bid on jobs they want to complete. 
+
+
+## Tech Stack
+The tech stack will be split into two: 
+1. The front-end will use: 
+  - react
+  - redux
+  
+2. The back-end will use:
+  - node
+  - express 
+  - postgres
+
+## Users
 There can be two types of users for this application:
 1. General users 
   - These users will have a job which they need help to complete (can be anything the users needs assistance with e.g. carpentry, landscaping, plumbing etc.)
@@ -17,26 +35,17 @@ There can be two types of users for this application:
   - These users will be able to login and bid for potential projects
   - When selected they will be sent a work order and instant chat (see above)
 
-## Tech Stack
-The tech stack will be split into two: 
-1. The front-end will use: 
-  - react
-  
-2. The back-end will use:
-  - node
-  - express 
-  - postgres
-
-## Users
-- General users are expected to be people who need assistance completing a home project which is outside of their expertise. 
-- Tradesmen will be businesses who are looking to take on additionl work
-
 ## Data
 As this project will be compeled as a peer to peer work-order there will be no third party database to connect to however the project will be seeded with General Users and Tradesmen
 
 ## Sensitive info
-As many users will have work completed at their address both their names and addresses are considered sensitive information. The address will be encrypted and both the names and address will be only avaliable on secured urls
+As many users will have work completed at their address both their names and addresses are considered sensitive information.  
+The address will be encrypted and both the names and address will be only avaliable on secured urls.  
 
+## Sensitive info which will not be implemented - included as a Q&A
+1. user verification - avoid duplicate users
+2. tradesmen verification - avoid badly rated tradesmen creating a new identification to start again
+3. fake project completion - avoid tradesmen creating users and acting as if they have completed projects 
 
 ## Database Schema
 - Users:
@@ -58,21 +67,30 @@ As many users will have work completed at their address both their names and add
 
 - Projects
   - proejct_id
-  - u_id
+  - user_id
   - description
   - address
   - created_at
   - price
-  - t_id
+  - tradesmen_id
   - status
   - completed_at
   - issues
-  - web-chat
+  - chat_id
   - before_photos
   - after_photos
 
+- Chat
+  - id
+  - user_id
+  - tradesmen_id
+  - comment
+  - timestamp
+
 - Reviews
-  - comments
-  - u_id
-  - t_id
-  - p_id
+  - id
+  - user_id
+  - tradesmen_id
+  - project_id
+  - review_comment
+  - review_rating

@@ -55,6 +55,8 @@ The address will be encrypted and both the names and address will be only avalia
   - email
   - phone
   - address
+  - password
+  - photo - optional
     
 - Tradesmen: 
   - id
@@ -64,9 +66,10 @@ The address will be encrypted and both the names and address will be only avalia
   - email
   - photo
   - rating
+  - password
 
 - Projects
-  - proejct_id
+  - project_id
   - user_id
   - description
   - address
@@ -77,8 +80,13 @@ The address will be encrypted and both the names and address will be only avalia
   - completed_at
   - issues
   - chat_id
-  - before_photos
-  - after_photos
+  - photos_id
+
+- Photos
+  - id
+  - project_id
+  - photo
+  - after /// boolean (if true photo is an after photo if false photo is before)
 
 - Chat
   - id

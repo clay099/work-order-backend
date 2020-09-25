@@ -12,9 +12,11 @@ CREATE TABLE users (
   last_name TEXT NOT NULL,
   email TEXT NOT NULL UNIQUE,
   phone BIGINT NOT NULL UNIQUE,
-  address TEXT NOT NULL,
-  password TEXT NOT NULL,
-  photo TEXT
+  street_address TEXT NOT NULL,
+  address_city TEXT NOT NULL,
+  address_zip TEXT NOT NULL,
+  address_country TEXT NOT NULL,
+  password TEXT NOT NULL
 );
 
 CREATE TABLE tradesmen (
@@ -34,8 +36,10 @@ CREATE TABLE projects (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   user_id INTEGER NOT NULL REFERENCES users ON DELETE CASCADE,
   description TEXT NOT NULL,
-  address TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  street_address TEXT NOT NULL,
+  address_city TEXT NOT NULL,
+  address_zip TEXT NOT NULL,
+  address_country TEXT NOT NULL,  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   price NUMERIC,
   tradesmen_id INTEGER REFERENCES tradesmen ON DELETE CASCADE,
   status status_enum DEFAULT 'auction',
@@ -53,8 +57,9 @@ CREATE TABLE photos (
 
 CREATE TABLE chat (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  user_id INTEGER NOT NULL,
-  tradesmen_id INTEGER NOT NULL,
+  project_id INTEGER NOT NULL,
+  user_id INTEGER,
+  tradesmen_id INTEGER,
   comment TEXT NOT NULL,
   sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
@@ -73,3 +78,4 @@ ALTER TABLE photos ADD CONSTRAINT fk_photos FOREIGN KEY (project_id) REFERENCES 
 
 ALTER TABLE chat ADD CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users ON DELETE CASCADE;
 ALTER TABLE chat ADD CONSTRAINT fk_tradesmen FOREIGN KEY (tradesmen_id) REFERENCES tradesmen ON DELETE CASCADE;
+ALTER TABLE chat ADD CONSTRAINT fk_projects FOREIGN KEY (tradesmen_id) REFERENCES projects ON DELETE CASCADE;

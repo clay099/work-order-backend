@@ -12,15 +12,15 @@ const morgan = require("morgan");
 app.use(morgan("tiny"));
 
 // import routes
-// const usersRoutes = require("./routes/users");
-// const companiesRoutes = require("./routes/companies");
-// const jobsRoutes = require("./routes/jobs");
+const usersRoutes = require("./routes/users");
+// const tradesmenRoutes = require("./routes/tradesmen");
+// const projectsRoutes = require("./routes/projects");
 // const authRoutes = require("./routes/auth");
 
 // user routes
-// app.use("/companies", companiesRoutes);
-// app.use("/jobs", jobsRoutes);
-// app.use("/users", usersRoutes);
+app.use("/users", usersRoutes);
+// app.use("/tradesmen", tradesmenRoutes);
+// app.use("/projects", projectsRoutes);
 // app.use("/", authRoutes);
 
 /** 404 handler */
@@ -40,7 +40,6 @@ app.use(function (err, req, res, next) {
 
 	return res.json({
 		error: err,
-		message: err.message,
 	});
 });
 

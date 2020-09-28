@@ -33,6 +33,8 @@ function ensureLoggedIn(req, res, next) {
 async function ensureCorrectUser(req, res, next) {
 	try {
 		let user = await User.get(req.params.id);
+		console.log(user.email);
+		console.log(req.user.email);
 		if (req.user.email === user.email) {
 			return next();
 		} else {

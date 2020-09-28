@@ -1,7 +1,5 @@
 const db = require("../db");
 const ExpressError = require("../helpers/expressError");
-const sqlForPartialUpdate = require("../helpers/partialUpdate");
-const sqlForDelete = require("../helpers/removeFromDB");
 const createToken = require("../helpers/createToken");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -97,12 +95,13 @@ class User extends baseModel {
 		);
 		return result.rows.map((u) => new User(u));
 	}
+
 	/** get user by id */
 	static async get(id) {
 		const result = await db.query(
 			`SELECT id, first_name, last_name, email, phone, street_address, address_city, address_zip, address_country
-        FROM users
-        WHERE id=$1`,
+      FROM users
+      WHERE id=$1`,
 			[id]
 		);
 
@@ -153,7 +152,12 @@ class User extends baseModel {
 				BCRYPT_WORK_FACTOR
 			);
 		}
-		const updateData = sqlForPartialUpdate("users", items, "id", this.id);
+		const updateData = User.sqlForPartialUpdate(
+			"users",
+			items,
+			"id",
+			this.id
+		);
 		const result = await db.query(updateData.query, updateData.values);
 		let u = result.rows[0];
 
@@ -165,7 +169,7 @@ class User extends baseModel {
 
 	/** remove user with matching username */
 	static async remove(id) {
-		let queryString = sqlForDelete("users", "id", id);
+		let queryString = User.sqlForDelete("users", "id", id);
 		const result = await db.query(queryString.query, [queryString.id]);
 
 		if (result.rows.length === 0) {

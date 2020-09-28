@@ -1,5 +1,48 @@
 class baseModel {
 	/**
+	 * Generate a selective create query based on a request body:
+	 *
+	 * - table: where to make the query
+	 * - items: an object with keys of columns you want to create and values with new values
+	 * - returning: an array of values to be returned
+	 *
+	 * Returns object containing a DB query as a string, an array of string values to be updated
+	 *
+	 */
+
+	static sqlForCreate(table, items, returning) {
+		// keep track of item indexes
+		// store all the columns we want to update and associate with vals
+
+		let idx = 1;
+		let columns = [];
+		let valuesIdx = [];
+
+		// filter out keys that start with "_" -- we don't want these in DB
+		for (let key in items) {
+			if (key.startsWith("_")) {
+				delete items[key];
+			}
+		}
+
+		for (let column in items) {
+			columns.push(`${column}`);
+			valuesIdx.push(`$${idx}`);
+			idx += 1;
+		}
+
+		// build query
+		let cols = columns.join(", ");
+		let vals = valuesIdx.join(", ");
+		returning = returning.join(", ");
+		let query = `INSERT INTO ${table} (${cols}) VALUES (${vals}) RETURNING ${returning}`;
+
+		let values = Object.values(items);
+
+		return { query, values, returning };
+	}
+
+	/**
 	 * Generate a selective update query based on a request body:
 	 *
 	 * - table: where to make the query
@@ -12,7 +55,7 @@ class baseModel {
 	 *
 	 */
 
-	sqlForPartialUpdate(table, items, key, id) {
+	static sqlForPartialUpdate(table, items, key, id) {
 		// keep track of item indexes
 		// store all the columns we want to update and associate with vals
 
@@ -55,46 +98,27 @@ class baseModel {
 	}
 
 	/**
-	 * Generate a selective create query based on a request body:
+	 * Generate a delete query based on a request body:
 	 *
 	 * - table: where to make the query
-	 * - items: an object with keys of columns you want to create and values with new values
-   * - returning: an array of values to be returned
+	 * - key: the column that we query by (e.g. username, handle, id)
+	 * - id: current record ID
 	 *
-	 * Returns object containing a DB query as a string, an array of string values to be updated
+	 * Returns object containing a DB query as a string
 	 *
 	 */
-
-	static sqlForCreate(table, items, returning) {
-		// keep track of item indexes
-		// store all the columns we want to update and associate with vals
-
-		let idx = 1;
-		let columns = [];
-		let valuesIdx = [];
-
-		// filter out keys that start with "_" -- we don't want these in DB
-		for (let key in items) {
-			if (key.startsWith("_")) {
-				delete items[key];
-			}
+	static sqlForDelete(table, key, id) {
+		if (table === undefined || key === undefined || id === undefined) {
+			throw new ExpressError("all parameters are required", 500);
 		}
-
-		for (let column in items) {
-			columns.push(`${column}`);
-			valuesIdx.push(`$${idx}`);
-			idx += 1;
-		}
-
 		// build query
-		let cols = columns.join(", ");
-		let vals = valuesIdx.join(", ");
-		returning = returning.join(", ");
-		let query = `INSERT INTO ${table} (${cols}) VALUES (${vals}) RETURNING ${returning}`;
-
-		let values = Object.values(items);
-
-		return { query, values, returning };
+		let query;
+		if (Array.isArray(key)) {
+			query = `DELETE FROM ${table} WHERE ${key[0]}=$1 AND ${key[1]}=$2 RETURNING *`;
+		} else {
+			query = `DELETE FROM ${table} WHERE ${key}=$1 RETURNING *`;
+		}
+		return { query, id };
 	}
 }
 

@@ -11,17 +11,21 @@ const ExpressError = require("./helpers/expressError");
 const morgan = require("morgan");
 app.use(morgan("tiny"));
 
+// set up authentication middleware
+const { authenticateJWT } = require("./middleware/auth");
+app.use(authenticateJWT);
+
 // import routes
 const usersRoutes = require("./routes/users");
 // const tradesmenRoutes = require("./routes/tradesmen");
 // const projectsRoutes = require("./routes/projects");
-// const authRoutes = require("./routes/auth");
+const authRoutes = require("./routes/auth");
 
 // user routes
 app.use("/users", usersRoutes);
 // app.use("/tradesmen", tradesmenRoutes);
 // app.use("/projects", projectsRoutes);
-// app.use("/", authRoutes);
+app.use("/", authRoutes);
 
 /** 404 handler */
 app.use(function (req, res, next) {

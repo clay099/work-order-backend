@@ -18,17 +18,7 @@
 			"password": "password123"
 		}
 	],
-	"required": [
-		"first_name",
-		"last_name",
-		"email",
-		"phone",
-		"street_address",
-		"address_city",
-		"address_zip",
-		"address_country",
-		"password"
-	],
+	"required": [],
 	"properties": {
 		"first_name": {
 			"$id": "#/properties/first_name",

@@ -3,11 +3,11 @@ const ExpressError = require("../helpers/expressError");
 const User = require("../models/userModel");
 const jsonschema = require("jsonschema");
 const userSchema = require("../schema/userSchema.json");
+const updateUserSchema = require("../schema/updateUserSchema.json");
 const { ensureCorrectUser } = require("../middleware/auth");
+const createToken = require("../helpers/createToken");
 
 const router = new express.Router();
-
-module.exports = router;
 
 /** GET / => {users : [userData], [user2Data], ...} */
 router.get("/", async (req, res, next) => {
@@ -34,7 +34,6 @@ router.post("/", async (req, res, next) => {
 		}
 		// we know user passes and create in DB and return as json
 		const user = await User.create(req.body);
-		console.log(user);
 		const token = await user.authenticate(req.body.password);
 		return res.status(201).json({ user, token });
 	} catch (e) {
@@ -55,30 +54,25 @@ router.get("/:id", async (req, res, next) => {
 /** PATCH /[username] {userData, _token: tokenDate} => {user: userData} */
 router.patch("/:id", ensureCorrectUser, async (req, res, next) => {
 	try {
-		let u = await User.getAll(req.params.id);
+		if ("id" in req.body) {
+			return next({ status: 400, message: "Not allowed" });
+		}
 
-		// if password, first_name, last_name, email, photo_url, is_admin has been provided in req.body update user details otherwise leave value
-		u.password = req.body.password ? req.body.password : u.password;
-
-		u.first_name = req.body.first_name ? req.body.first_name : u.first_name;
-
-		u.last_name = req.body.last_name ? req.body.last_name : u.last_name;
-
-		u.email = req.body.email ? req.body.email : u.email;
-
-		u.photo_url = req.body.photo_url ? req.body.photo_url : u.photo_url;
-
-		u.is_admin = req.body.is_admin ? req.body.is_admin : u.is_admin;
 		// validate against schema
-		const result = jsonschema.validate(u, userSchema);
+		const result = jsonschema.validate(req.body, updateUserSchema);
 		if (!result.valid) {
 			let listErr = result.errors.map((e) => e.stack);
 			let err = new ExpressError(listErr, 400);
 			return next(err);
 		}
+		let u = await User.get(req.params.id);
+
 		let user = await u.update(req.body);
 
-		return res.json({ user });
+		// if user is updated you will need to save the new token as email may have changed which effects the authorization checks
+		const token = await createToken(user.email);
+
+		return res.json({ user, token });
 	} catch (e) {
 		return next(e);
 	}
@@ -93,3 +87,5 @@ router.delete("/:id", ensureCorrectUser, async (req, res, next) => {
 		return next(e);
 	}
 });
+
+module.exports = router;

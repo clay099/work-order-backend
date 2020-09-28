@@ -2,9 +2,10 @@ const db = require("../db");
 const ExpressError = require("../helpers/expressError");
 const sqlForPartialUpdate = require("../helpers/partialUpdate");
 const sqlForDelete = require("../helpers/removeFromDB");
+const createToken = require("../helpers/createToken");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { BCRYPT_WORK_FACTOR, JWT_SECRET_KEY } = require("../config");
+const { BCRYPT_WORK_FACTOR } = require("../config");
 const baseModel = require("./baseModel");
 
 /**collection of related methods for user */
@@ -96,7 +97,7 @@ class User extends baseModel {
 		);
 		return result.rows.map((u) => new User(u));
 	}
-	/** get user by username */
+	/** get user by id */
 	static async get(id) {
 		const result = await db.query(
 			`SELECT id, first_name, last_name, email, phone, street_address, address_city, address_zip, address_country
@@ -104,6 +105,7 @@ class User extends baseModel {
         WHERE id=$1`,
 			[id]
 		);
+
 		const user = result.rows[0];
 
 		if (user === undefined) {
@@ -116,8 +118,26 @@ class User extends baseModel {
 		let u = new User(user);
 
 		delete u.password;
-		delete u.photo_url;
-		delete u.is_admin;
+
+		return u;
+	}
+
+	/** get all user details by email */
+	static async getAll(email) {
+		const result = await db.query(`SELECT * FROM users WHERE email=$1`, [
+			email,
+		]);
+
+		const user = result.rows[0];
+
+		if (user === undefined) {
+			const err = new ExpressError(
+				`Could not find User email: ${email}`,
+				404
+			);
+			throw err;
+		}
+		let u = new User(user);
 
 		return u;
 	}
@@ -133,12 +153,7 @@ class User extends baseModel {
 				BCRYPT_WORK_FACTOR
 			);
 		}
-		const updateData = sqlForPartialUpdate(
-			"users",
-			items,
-			"username",
-			this.username
-		);
+		const updateData = sqlForPartialUpdate("users", items, "id", this.id);
 		const result = await db.query(updateData.query, updateData.values);
 		let u = result.rows[0];
 
@@ -165,10 +180,10 @@ class User extends baseModel {
 
 	async authenticate(password) {
 		if ((await bcrypt.compare(password, this.password)) === true) {
-			let token = jwt.sign({ username: this.username }, JWT_SECRET_KEY);
+			let token = createToken(this.email);
 			return token;
 		}
-		const err = new ExpressError(`Invalid username/password`, 400);
+		const err = new ExpressError(`Invalid email/password`, 400);
 		throw err;
 	}
 }

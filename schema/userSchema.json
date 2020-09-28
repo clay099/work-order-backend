@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"$id": "http://example.com/example.json",
@@ -105,3 +106,112 @@
 	},
 	"additionalProperties": true
 }
+=======
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "http://example.com/example.json",
+	"type": "object",
+	"title": "The root schema",
+	"description": "The root schema comprises the entire JSON document.",
+	"default": {},
+	"examples": [
+		{
+			"first_name": "clayton",
+			"last_name": "Whittaker",
+			"email": "whittaker@gmail.com",
+			"phone": "3055125425",
+			"street_address": "1 Sacramento Street",
+			"address_city": "San Francisco",
+			"address_zip": "94687",
+			"address_country": "United States of America",
+			"password": "password123"
+		}
+	],
+	"required": [
+		"first_name",
+		"last_name",
+		"email",
+		"phone",
+		"street_address",
+		"address_city",
+		"address_zip",
+		"address_country",
+		"password"
+	],
+	"properties": {
+		"first_name": {
+			"$id": "#/properties/first_name",
+			"type": "string",
+			"title": "The first_name schema",
+			"description": "user first name",
+			"default": "",
+			"examples": ["clayton"]
+		},
+		"last_name": {
+			"$id": "#/properties/last_name",
+			"type": "string",
+			"title": "The last_name schema",
+			"description": "user last name",
+			"default": "",
+			"examples": ["Whittaker"]
+		},
+		"email": {
+			"$id": "#/properties/email",
+			"type": "string",
+			"title": "The email schema",
+			"description": "user email",
+			"default": "",
+			"examples": ["whittaker@gmail.com"]
+		},
+		"phone": {
+			"$id": "#/properties/phone",
+			"type": "integer",
+			"title": "The phone schema",
+			"description": "phone number",
+			"default": "",
+			"examples": ["3055125425"]
+		},
+		"street_address": {
+			"$id": "#/properties/street_address",
+			"type": "string",
+			"title": "The street_address schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["1 Sacramento Street"]
+		},
+		"address_city": {
+			"$id": "#/properties/address_city",
+			"type": "string",
+			"title": "The address_city schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["San Francisco"]
+		},
+		"address_zip": {
+			"$id": "#/properties/address_zip",
+			"type": "string",
+			"title": "The address_zip schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["94687"]
+		},
+		"address_country": {
+			"$id": "#/properties/address_country",
+			"type": "string",
+			"title": "The address_country schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["United States of America"]
+		},
+		"password": {
+			"$id": "#/properties/password",
+			"type": "string",
+			"title": "The password schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["password123"]
+		}
+	},
+	"additionalProperties": true
+}
+>>>>>>> 76f75e088703ce17f68ad48e8670dd6c3f5dc136

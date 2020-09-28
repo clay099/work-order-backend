@@ -59,6 +59,7 @@ router.patch("/:id", ensureCorrectUser, async (req, res, next) => {
 		}
 
 		// validate against schema
+		// note this will let you update any field except the id. Further front end validation for updating email and password is recommended
 		const result = jsonschema.validate(req.body, updateUserSchema);
 		if (!result.valid) {
 			let listErr = result.errors.map((e) => e.stack);

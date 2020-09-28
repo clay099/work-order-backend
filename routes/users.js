@@ -51,7 +51,7 @@ router.get("/:id", async (req, res, next) => {
 	}
 });
 
-/** PATCH /[username] {userData, _token: tokenDate} => {user: userData} */
+/** PATCH /[id] {userData, _token: tokenDate} => {user: userData} */
 router.patch("/:id", ensureCorrectUser, async (req, res, next) => {
 	try {
 		if ("id" in req.body) {

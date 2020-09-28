@@ -17,13 +17,13 @@ app.use(authenticateJWT);
 
 // import routes
 const usersRoutes = require("./routes/users");
-// const tradesmenRoutes = require("./routes/tradesmen");
+const tradesmenRoutes = require("./routes/tradesmen");
 // const projectsRoutes = require("./routes/projects");
 const authRoutes = require("./routes/auth");
 
 // user routes
 app.use("/users", usersRoutes);
-// app.use("/tradesmen", tradesmenRoutes);
+app.use("/tradesmen", tradesmenRoutes);
 // app.use("/projects", projectsRoutes);
 app.use("/", authRoutes);
 

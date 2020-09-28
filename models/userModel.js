@@ -108,10 +108,7 @@ class User extends baseModel {
 		const user = result.rows[0];
 
 		if (user === undefined) {
-			const err = new ExpressError(
-				`Could not find User username: ${username}`,
-				404
-			);
+			const err = new ExpressError(`Could not find User id: ${id}`, 404);
 			throw err;
 		}
 		let u = new User(user);
@@ -167,16 +164,13 @@ class User extends baseModel {
 		return u;
 	}
 
-	/** remove user with matching username */
+	/** remove user with matching id */
 	static async remove(id) {
 		let queryString = User.sqlForDelete("users", "id", id);
 		const result = await db.query(queryString.query, [queryString.id]);
 
 		if (result.rows.length === 0) {
-			const err = new ExpressError(
-				`Could not find user username: ${id}`,
-				404
-			);
+			const err = new ExpressError(`Could not find user id: ${id}`, 404);
 			throw err;
 		}
 		return "deleted";

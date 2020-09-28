@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET_KEY } = require("../config");
 const ExpressError = require("../helpers/expressError");
 const User = require("../models/userModel");
+const Tradesman = require("../models/tradesmanModel");
 
 /** Middleware: Authenticate user. */
 
@@ -28,14 +29,30 @@ function ensureLoggedIn(req, res, next) {
 		return next();
 	}
 }
-/** Middleware: Requires correct username. */
+/** Middleware: Requires correct id for users */
 
 async function ensureCorrectUser(req, res, next) {
 	try {
 		let user = await User.get(req.params.id);
-		console.log(user.email);
-		console.log(req.user.email);
 		if (req.user.email === user.email) {
+			return next();
+		} else {
+			const err = new ExpressError(`Unauthorized`, 401);
+			return next(err);
+		}
+	} catch (e) {
+		// errors would happen here if we made a request and req.user is undefined
+		const err = new ExpressError(`Unauthorized`, 401);
+		return next(err);
+	}
+}
+
+/** Middleware: Requires correct id for tradesman */
+
+async function ensureCorrectTradesman(req, res, next) {
+	try {
+		let tradesman = await Tradesman.get(req.params.id);
+		if (req.user.email === tradesman.email) {
 			return next();
 		} else {
 			const err = new ExpressError(`Unauthorized`, 401);
@@ -70,4 +87,5 @@ module.exports = {
 	ensureLoggedIn,
 	ensureCorrectUser,
 	ensureIsAdmin,
+	ensureCorrectTradesman,
 };

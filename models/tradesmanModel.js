@@ -130,8 +130,13 @@ class Tradesman extends baseModel {
 			"id",
 			this.id
 		);
-		const result = await db.query(updateData.query, updateData.values);
-		let t = result.rows[0];
+		let result;
+		try {
+			result = await db.query(updateData.query, updateData.values);
+		} catch (error) {
+			throw new ExpressError(error.message, 400);
+		}
+		let t = new Tradesman(result.rows[0]);
 
 		let tradesmanData = new Tradesman(t);
 
@@ -158,7 +163,7 @@ class Tradesman extends baseModel {
 
 	async authenticate(password) {
 		if ((await bcrypt.compare(password, this.password)) === true) {
-			let token = createToken(this.email);
+			let token = createToken(this.email, this.id, "tradesman");
 			return token;
 		}
 		const err = new ExpressError(`Invalid email/password`, 400);

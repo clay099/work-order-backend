@@ -4,7 +4,7 @@ const Tradesman = require("../models/tradesmanModel");
 const jsonschema = require("jsonschema");
 const tradesmanSchema = require("../schema/tradesmanSchema.json");
 const updateTradesmanSchema = require("../schema/updateTradesmanSchema.json");
-const { ensureCorrectTradesman } = require("../middleware/auth");
+const { ensureCorrectUser } = require("../middleware/auth");
 const createToken = require("../helpers/createToken");
 
 const router = new express.Router();
@@ -52,10 +52,10 @@ router.get("/:id", async (req, res, next) => {
 });
 
 /** PATCH /[id] {tradesmanData, _token: tokenDate} => {tradesman: tradesmanData} */
-router.patch("/:id", ensureCorrectTradesman, async (req, res, next) => {
+router.patch("/:id", ensureCorrectUser, async (req, res, next) => {
 	try {
 		if ("id" in req.body) {
-			return next({ status: 400, message: "Not allowed to change 'id'" });
+			return next({ status: 400, message: "Not allowed to change 'ID'" });
 		}
 
 		// validate against schema
@@ -80,7 +80,7 @@ router.patch("/:id", ensureCorrectTradesman, async (req, res, next) => {
 });
 
 /** DELETE /[id] => {message: "Tradesman deleted"} */
-router.delete("/:id", ensureCorrectTradesman, async (req, res, next) => {
+router.delete("/:id", ensureCorrectUser, async (req, res, next) => {
 	try {
 		await Tradesman.remove(req.params.id);
 		return res.json({ message: "Tradesman deleted" });

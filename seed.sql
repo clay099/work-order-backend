@@ -1,17 +1,23 @@
-INSERT INTO users (first_name, last_name, email, phone, street_address, address_city, address_zip, address_country, password) values ('Carisa', 'Colvin',' cc@gmail.com', 3354259154, '93959 Maya Stravenue', 'Luciousland', 72488, 'United States of America', 'password'),
-('Kelly', 'Obrien', 'kobrien@outlook.com', 9255245218,'200 Ara Mills', 'West Jaynemouth', 77260, 'United States of America','password'),
-('Shirley', 'Harper','theharper@yahoo.com', 3055785415, '21270 Tommie Falls', 'East Abelville', 67762, 'United States of America','password'),
-('Christopher', 'Smith', 'smithman@hotmail.com', 9257418548, '21444 Prudence Radial', 'Ernaside', 69920, 'United States of America','password'),
-('Olivia', 'Hodges', 'olivia@gmail.com', 75485781542, '4692 Stephania Flat', 'East Clementland', 88374, 'United States of America','password'),
-('Gustavo', 'Salazar', 'gustavo.salazar@gmail.com', 6523657418, '185 Jenkins Crest', 'Laurinefort', 86937, 'United States of America', 'password');
+-- all password fields is password run through the hash function
+INSERT INTO users (first_name, last_name, email, phone, street_address, address_city, address_zip, address_country, password) values ('Carisa', 'Colvin',' cc@gmail.com', 3354259154, '93959 Maya Stravenue', 'Luciousland', 72488, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Kelly', 'Obrien', 'kobrien@outlook.com', 9255245218,'200 Ara Mills', 'West Jaynemouth', 77260, 'United States of America','$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Shirley', 'Harper','theharper@yahoo.com', 3055785415, '21270 Tommie Falls', 'East Abelville', 67762, 'United States of America','$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Christopher', 'Smith', 'smithman@hotmail.com', 9257418548, '21444 Prudence Radial', 'Ernaside', 69920, 'United States of America','$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Olivia', 'Hodges', 'olivia@gmail.com', 75485781542, '4692 Stephania Flat', 'East Clementland', 88374, 'United States of America','$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Gustavo', 'Salazar', 'gustavo.salazar@gmail.com', 6523657418, '185 Jenkins Crest', 'Laurinefort', 86937, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Estrella', 'Hettinger', 'Estrella50@hotmail.com', 1475289635, '1784 Joan Falls', 'East Millie', 15520, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Cruz', 'Kassulke', 'Cruz.Kassulke83@yahoo.com', 2156936557, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
 
-INSERT INTO tradesmen (first_name, last_name, phone, email, password) values ('Anissa', 'Breitenberg', 5874529558,' Breitenberg@gmail.com', 'password'),
-('Nicklaus', 'Dickinson', 8741259638, 'Nicklaus.dickinson@yahoo.com', 'password'),
-('Pietro', 'Stamm',1247583695,' pietro@hotmail.com', 'password'),
-('Nolan', 'Anderson', 2565879968, 'nolan@gmail.com', 'password'),
-('Rashad', 'Bosco', 4578715472,' rashadbosco@outlook.com', 'password'),
-('Ollie', 'Orn', 1253696875, 'ollie@gmail.com', 'password'),
-('Johan', 'Osinski', 4052100047, 'josinski@yahoo.com', 'password');
+-- all password fields is password run through the hash function
+INSERT INTO tradesmen (first_name, last_name, phone, email, password) values ('Anissa', 'Breitenberg', 5874529558,' Breitenberg@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Nicklaus', 'Dickinson', 8741259638, 'Nicklaus.dickinson@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Pietro', 'Stamm',1247583695, 'pietro@hotmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Nolan', 'Anderson', 2565879968, 'nolan@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Rashad', 'Bosco', 4578715472,' rashadbosco@outlook.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Ollie', 'Orn', 1253696875, 'ollie@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Johan', 'Osinski', 4052100047, 'josinski@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Deshaun', 'Gleason', 5487896354, 'Deshaun.Gleason@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Myra', 'Lebsack', 5248578596, 'Myra_Lebsack@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
 
 -- new proejcts
 INSERT INTO projects(user_id, description, street_address,address_city, address_zip, address_country) VALUES (

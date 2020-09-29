@@ -55,7 +55,7 @@ router.get("/:id", async (req, res, next) => {
 router.patch("/:id", ensureCorrectUser, async (req, res, next) => {
 	try {
 		if ("id" in req.body) {
-			return next({ status: 400, message: "Not allowed" });
+			return next({ status: 400, message: "Not allowed to change 'ID'" });
 		}
 
 		// validate against schema

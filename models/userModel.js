@@ -155,8 +155,13 @@ class User extends baseModel {
 			"id",
 			this.id
 		);
-		const result = await db.query(updateData.query, updateData.values);
-		let u = result.rows[0];
+		let result;
+		try {
+			result = await db.query(updateData.query, updateData.values);
+		} catch (error) {
+			throw new ExpressError(error.message, 400);
+		}
+		let u = new User(result.rows[0]);
 
 		// remove sensitive information
 		delete u.password;
@@ -178,7 +183,7 @@ class User extends baseModel {
 
 	async authenticate(password) {
 		if ((await bcrypt.compare(password, this.password)) === true) {
-			let token = createToken(this.email);
+			let token = createToken(this.email, this.id, "user");
 			return token;
 		}
 		const err = new ExpressError(`Invalid email/password`, 400);

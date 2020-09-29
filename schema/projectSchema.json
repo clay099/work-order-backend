@@ -1,0 +1,116 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "http://example.com/example.json",
+	"type": "object",
+	"title": "The root schema",
+	"description": "The root schema comprises the entire JSON document.",
+	"default": {},
+	"examples": [
+		{
+			"description": "fix kitchen sink",
+			"street_address": "1 Sacramento Street",
+			"address_city": "San Francisco",
+			"address_zip": "94687",
+			"address_country": "United States of America",
+			"created_at": 123,
+			"price": 125.35,
+			"tradesmen_id": 1,
+			"status": "auction",
+			"completed_at": 123,
+			"issues": "water still leaking after fix"
+		}
+	],
+	"required": [
+		"description",
+		"street_address",
+		"address_city",
+		"address_zip",
+		"address_country"
+	],
+	"properties": {
+		"description": {
+			"$id": "#/properties/description",
+			"type": "string",
+			"title": "The description schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["fix kitchen sink"]
+		},
+		"street_address": {
+			"$id": "#/properties/street_address",
+			"type": "string",
+			"title": "The street_address schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["1 Sacramento Street"]
+		},
+		"address_city": {
+			"$id": "#/properties/address_city",
+			"type": "string",
+			"title": "The address_city schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["San Francisco"]
+		},
+		"address_zip": {
+			"$id": "#/properties/address_zip",
+			"type": "string",
+			"title": "The address_zip schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["94687"]
+		},
+		"address_country": {
+			"$id": "#/properties/address_country",
+			"type": "string",
+			"title": "The address_country schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["United States of America"]
+		},
+		"created_at": {
+			"default": 0,
+			"description": "An explanation about the purpose of this instance.",
+			"examples": ["2017-03-31 09:30:20-07"],
+			"title": "The created_at schema",
+			"type": "string"
+		},
+		"price": {
+			"default": 0.0,
+			"description": "An explanation about the purpose of this instance.",
+			"examples": [125.35],
+			"minimum": 0,
+			"title": "The price schema",
+			"type": "number"
+		},
+		"tradesmen_id": {
+			"$id": "#/properties/tradesmen_id",
+			"type": "integer",
+			"title": "The tradesmen_id schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": 0,
+			"examples": [1]
+		},
+		"status": {
+			"default": "",
+			"description": "An explanation about the purpose of this instance.",
+			"enum": ["auction", "progressing", "completed", "cancelled"],
+			"examples": ["auction"],
+			"title": "The status schema"
+		},
+		"completed_at": {
+			"default": 0,
+			"description": "An explanation about the purpose of this instance.",
+			"examples": ["2017-03-31 09:30:20-07"],
+			"title": "The completed_at schema",
+			"type": "string"
+		},
+		"issues": {
+			"default": "",
+			"description": "An explanation about the purpose of this instance.",
+			"examples": ["water still leaking after fix"],
+			"title": "The issues schema"
+		}
+	},
+	"additionalProperties": true
+}

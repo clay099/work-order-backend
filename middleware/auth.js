@@ -6,6 +6,7 @@ const ExpressError = require("../helpers/expressError");
 const User = require("../models/userModel");
 const Tradesman = require("../models/tradesmanModel");
 const Projects = require("../models/projectModel");
+const Chat = require("../models/chatModel");
 
 /** Middleware: Authenticate user. */
 
@@ -86,9 +87,39 @@ async function ensureValidUser(req, res, next) {
 	}
 }
 
+/** Middleware: Requires project id
+ * check that the user or tradesman can only update / delete projects they are working on
+ */
+async function ensureValidChatUser(req, res, next) {
+	try {
+		let projectChat = await Chat.getUserChat(req.user);
+		// checks if the user id is included in the projectChat.
+		// only allow user to proceed if a valid id is found
+		for (let chat of projectChat) {
+			if (req.user.user_type === "user") {
+				if (req.user.id === chat.user_id) {
+					return next();
+				}
+			} else {
+				// user is tradesmen check if ids match those of a tradesman
+				if (req.user.id === chat.tradesmen_id) {
+					return next();
+				}
+			}
+		}
+		const err = new ExpressError(`Unauthorized`, 401);
+		return next(err);
+	} catch (e) {
+		// errors would happen here if we made a request and req.user is undefined
+		const err = new ExpressError(`Unauthorized`, 401);
+		return next(err);
+	}
+}
+
 module.exports = {
 	authenticateJWT,
 	ensureLoggedIn,
 	ensureCorrectUser,
 	ensureValidUser,
+	ensureValidChatUser,
 };

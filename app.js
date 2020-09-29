@@ -19,12 +19,14 @@ app.use(authenticateJWT);
 const usersRoutes = require("./routes/users");
 const tradesmenRoutes = require("./routes/tradesmen");
 const projectsRoutes = require("./routes/projects");
+const chatRoutes = require("./routes/chats");
 const authRoutes = require("./routes/auth");
 
 // user routes
 app.use("/users", usersRoutes);
 app.use("/tradesmen", tradesmenRoutes);
 app.use("/projects", projectsRoutes);
+app.use("/chat", chatRoutes);
 app.use("/", authRoutes);
 
 /** 404 handler */

@@ -1,5 +1,4 @@
 const express = require("express");
-const ExpressError = require("../helpers/expressError");
 const User = require("../models/userModel");
 const Tradesman = require("../models/tradesmanModel");
 

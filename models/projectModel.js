@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { BCRYPT_WORK_FACTOR } = require("../config");
 const baseModel = require("./baseModel");
-const { stat } = require("fs");
 
 /**collection of related methods for project */
 

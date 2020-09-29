@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+      {
+          "project_id": 1,
+          "user_id": 1,
+          "tradesmen_id": 1,
+          "comment": "new comment goes here"
+      }
+  ],
+  "required": [
+      "project_id",
+      "comment"
+  ],
+  "properties": {
+      "project_id": {
+          "$id": "#/properties/project_id",
+          "type": "integer",
+          "title": "The project_id schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": 0,
+          "examples": [
+              1
+          ]
+      },
+      "user_id": {
+          "$id": "#/properties/user_id",
+          "type": "integer",
+          "title": "The user_id schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": 0,
+          "examples": [
+              1
+          ]
+      },
+      "tradesmen_id": {
+          "$id": "#/properties/tradesmen_id",
+          "type": "integer",
+          "title": "The tradesmen_id schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": 0,
+          "examples": [
+              1
+          ]
+      },
+      "comment": {
+          "$id": "#/properties/comment",
+          "type": "string",
+          "title": "The comment schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+              "new comment goes here"
+          ]
+      }
+  },
+  "additionalProperties": true
+}

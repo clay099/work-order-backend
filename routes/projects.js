@@ -27,6 +27,7 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
+/** POST / {_token: tokenDate} => {projects : [projectData], [project2Data], ...} */
 router.get("/new", async (req, res, next) => {
 	try {
 		let projects;

@@ -182,12 +182,12 @@ class User extends baseModel {
 	}
 
 	async authenticate(password) {
-		if ((await bcrypt.compare(password, this.password)) === true) {
-			let token = createToken(this.email, this.id, "user");
-			return token;
+		if ((await bcrypt.compare(password, this.password)) !== true) {
+			const err = new ExpressError(`Invalid email/password`, 400);
+			throw err;
 		}
-		const err = new ExpressError(`Invalid email/password`, 400);
-		throw err;
+		let token = createToken(this.email, this.id, "user");
+		return token;
 	}
 }
 

@@ -88,13 +88,7 @@ class baseModel {
 		}
 
 		let values = Object.values(items);
-
-		if (Array.isArray(id)) {
-			values.push(id[0]);
-			values.push(id[1]);
-		} else {
-			values.push(id);
-		}
+		values.push(id);
 
 		return { query, values };
 	}
@@ -114,12 +108,8 @@ class baseModel {
 			throw new ExpressError("all parameters are required", 500);
 		}
 		// build query
-		let query;
-		if (Array.isArray(key)) {
-			query = `DELETE FROM ${table} WHERE ${key[0]}=$1 AND ${key[1]}=$2 RETURNING *`;
-		} else {
-			query = `DELETE FROM ${table} WHERE ${key}=$1 RETURNING *`;
-		}
+		let query = `DELETE FROM ${table} WHERE ${key}=$1 RETURNING *`;
+
 		return { query, id };
 	}
 }

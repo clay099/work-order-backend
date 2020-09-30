@@ -51,7 +51,7 @@ CREATE TABLE projects (
 CREATE TABLE photos (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   project_id INTEGER NOT NULL,
-  -- photo, need to work this out
+  photo_link TEXT NOT NULL,
   description TEXT NOT NULL, 
   after BOOLEAN NOT NULL DEFAULT FALSE  --if false photo is before if true photo is after
 );

@@ -5,8 +5,8 @@
 	"main": "server.js",
 	"scripts": {
 		"test": "jest --runInBand --coverage",
-    "start": "node server.js",
-    "debug": "node server.js --inspect",
+		"start": "node server.js",
+		"debug": "node server.js --inspect",
 		"seed": "dropdb work-order && createdb work-order && psql work-order < data.sql && psql work-order < seed.sql && dropdb work-order-test && createdb work-order-test && psql work-order-test < data.sql"
 	},
 	"repository": {
@@ -33,6 +33,7 @@
 		"faker": "^5.1.0",
 		"fs": "0.0.1-security",
 		"jest": "^26.4.2",
+		"supertest": "^5.0.0",
 		"yargs": "^16.0.3"
 	}
 }

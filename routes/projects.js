@@ -5,7 +5,6 @@ const jsonschema = require("jsonschema");
 const projectSchema = require("../schema/projectSchema.json");
 const updateProjectSchema = require("../schema/updateProjectSchema.json");
 const { ensureLoggedIn, ensureValidUser } = require("../middleware/auth");
-const createToken = require("../helpers/createToken");
 
 const router = new express.Router();
 
@@ -20,6 +19,22 @@ router.get("/", async (req, res, next) => {
 			projects = await Project.allUser(req.user.id);
 		} else {
 			projects = await Project.allTradesman(req.user.id);
+		}
+
+		return res.json({ projects });
+	} catch (e) {
+		return next(e);
+	}
+});
+
+router.get("/new", async (req, res, next) => {
+	try {
+		let projects;
+		// checks if user or tradesman is requesting projects
+		if (req.user.user_type === "tradesman") {
+			projects = await Project.NewJobs(req.user.id);
+		} else {
+			throw new ExpressError("unauthorized", 400);
 		}
 
 		return res.json({ projects });
@@ -78,7 +93,8 @@ router.get("/:id", ensureLoggedIn, async (req, res, next) => {
 router.patch("/:id", ensureValidUser, async (req, res, next) => {
 	try {
 		if ("id" in req.body) {
-			return next({ status: 400, message: "Not allowed to change 'ID'" });
+			let err = new ExpressError("Not allowed to change 'ID'", 400);
+			return next(err);
 		}
 
 		// validate against schema

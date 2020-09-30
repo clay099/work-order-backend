@@ -46,10 +46,11 @@ router.get("/:id", ensureLoggedIn, async (req, res, next) => {
 router.patch("/:id", ensureValidChatUser, async (req, res, next) => {
 	try {
 		if ("id" in req.body || "project_id" in req.body) {
-			return next({
-				status: 400,
-				message: "Not allowed to change 'ID' or 'project_ID'",
-			});
+			let err = new ExpressError(
+				"Not allowed to change 'ID' or 'project_ID'",
+				400
+			);
+			return next(err);
 		}
 
 		// validate against schema

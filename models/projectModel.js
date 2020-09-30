@@ -84,6 +84,7 @@ class Project extends baseModel {
 		}
 		return new Project(project);
 	}
+
 	/** get all projects */
 	static async all() {
 		const result = await db.query(
@@ -92,7 +93,7 @@ class Project extends baseModel {
 		return result.rows.map((p) => new Project(p));
 	}
 
-	/** get all projects */
+	/** get all projects where the user has been involved */
 	static async allUser(id) {
 		const result = await db.query(
 			`SELECT * FROM projects WHERE user_id=$1 ORDER BY created_at DESC`,
@@ -108,7 +109,8 @@ class Project extends baseModel {
 			return new Project(p);
 		});
 	}
-	/** get all projects */
+
+	/** get all projects where the tradesman has been involved */
 	static async allTradesman(id) {
 		const result = await db.query(
 			`SELECT * FROM projects WHERE tradesmen_id=$1 ORDER BY created_at DESC`,
@@ -120,6 +122,24 @@ class Project extends baseModel {
 				if (p[column_name] === null) {
 					delete p[column_name];
 				}
+			}
+			return new Project(p);
+		});
+	}
+
+	static async NewJobs() {
+		const result = await db.query(
+			`SELECT * FROM projects WHERE status=$1 ORDER BY created_at DESC`,
+			["auction"]
+		);
+		return result.rows.map((p) => {
+			// remove columns who's value is null
+			for (let column_name in p) {
+				if (p[column_name] === null) {
+					delete p[column_name];
+				}
+				// delete exact street address
+				delete p.street_address;
 			}
 			return new Project(p);
 		});

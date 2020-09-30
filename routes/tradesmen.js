@@ -55,7 +55,8 @@ router.get("/:id", async (req, res, next) => {
 router.patch("/:id", ensureCorrectUser, async (req, res, next) => {
 	try {
 		if ("id" in req.body) {
-			return next({ status: 400, message: "Not allowed to change 'ID'" });
+			let err = new ExpressError("Not allowed to change 'ID'", 400);
+			return next(err);
 		}
 
 		// validate against schema
@@ -71,7 +72,11 @@ router.patch("/:id", ensureCorrectUser, async (req, res, next) => {
 		let tradesman = await t.update(req.body);
 
 		// if tradesman is updated you will need to save the new token as email may have changed which effects the authorization checks
-		const token = await createToken(tradesman.email);
+		const token = await createToken(
+			tradesman.email,
+			tradesman.id,
+			"tradesman"
+		);
 
 		return res.json({ tradesman, token });
 	} catch (e) {

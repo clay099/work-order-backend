@@ -1,3 +1,5 @@
+const ExpressError = require("../helpers/expressError");
+
 class baseModel {
 	/**
 	 * Generate a selective create query based on a request body:

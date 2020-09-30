@@ -1,0 +1,43 @@
+{
+	"default": {},
+	"description": "The root schema comprises the entire JSON document.",
+	"examples": [
+		{
+			"user_id": 1,
+			"tradesmen_id": 1,
+			"project_id": 1,
+			"review_comment": "new comment goes here",
+			"review_rating": 1
+		}
+	],
+	"required": ["project_id", "review_rating"],
+	"title": "The root schema",
+	"properties": {
+		"project_id": {
+			"$id": "#/properties/project_id",
+			"type": "integer",
+			"title": "The project_id schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": 0,
+			"examples": [1]
+		},
+		"review_comment": {
+			"$id": "#/properties/review_comment",
+			"type": "string",
+			"title": "The review_comment schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["new comment goes here"]
+		},
+		"review_rating": {
+			"default": 0,
+			"description": "An explanation about the purpose of this instance.",
+			"examples": [9],
+			"maximum": 10,
+			"minimum": 0,
+			"title": "The review_rating schema",
+			"type": "integer"
+		}
+	},
+	"additionalProperties": true
+}

@@ -136,9 +136,7 @@ class Tradesman extends baseModel {
 		} catch (error) {
 			throw new ExpressError(error.message, 400);
 		}
-		let t = new Tradesman(result.rows[0]);
-
-		let tradesmanData = new Tradesman(t);
+		let tradesmanData = new Tradesman(result.rows[0]);
 
 		// remove sensitive information
 		delete tradesmanData.password;

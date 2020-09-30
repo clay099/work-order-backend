@@ -141,16 +141,16 @@ class Project extends baseModel {
 				`Could not find Project id: ${id}`,
 				404
 			);
-			throw err;
+			return err;
 		}
 		// can only look up projects you are involved with (either as user or tradesman)
 		if (user.user_type === "user") {
 			if (user.id !== project.user_id) {
-				return new ExpressError(`Unauthorized`, 401);
+				throw new ExpressError(`Unauthorized`, 401);
 			}
 		} else {
 			if (user.id !== project.tradesmen_id) {
-				return new ExpressError(`Unauthorized`, 401);
+				throw new ExpressError(`Unauthorized`, 401);
 			}
 		}
 
@@ -182,7 +182,7 @@ class Project extends baseModel {
 		} catch (error) {
 			throw new ExpressError(error.message, 400);
 		}
-		let project = new Project(result.rows[0]);
+		let project = result.rows[0];
 
 		if (project === undefined) {
 			const err = new ExpressError(

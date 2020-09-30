@@ -45,7 +45,7 @@ async function beforeEachHook(TEST_DATA) {
 
 		// do the same for tradesman
 		const tradesman = await db.query(
-			"INSERT INTO tradesmen (first_name, last_name, email, phone, password) VALUES ('userFirstName', 'userLastName', 'testTradesman@gmail.com', 0987654321) RETURNING *",
+			"INSERT INTO tradesmen (first_name, last_name, email, phone, password) VALUES ('tradesmanFirstName', 'tradesmanLastName', 'testTradesman@gmail.com', 0987654321, $1) RETURNING *",
 			[hashedPassword]
 		);
 

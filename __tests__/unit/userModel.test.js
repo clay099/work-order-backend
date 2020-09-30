@@ -132,39 +132,39 @@ describe("test User Model", () => {
 				);
 			}
 		});
+	});
 
-		describe("User.remove()", () => {
-			it("deleted the created user", async () => {
-				let resp = await User.remove(TEST_DATA.user.id);
-				expect(resp).toEqual("deleted");
-			});
-
-			it("returns an error if user can't be found", async () => {
-				try {
-					await User.remove(6543210);
-				} catch (error) {
-					expect(error.message).toEqual(
-						`Could not find user id: 6543210`
-					);
-				}
-			});
+	describe("User.remove()", () => {
+		it("deleted the created user", async () => {
+			let resp = await User.remove(TEST_DATA.user.id);
+			expect(resp).toEqual("deleted");
 		});
 
-		describe("User.authenticate()", () => {
-			it("authenticates the user", async () => {
-				let user = await User.getAll(TEST_DATA.user.email);
-				let token = await user.authenticate("secret");
-				expect(token).toEqual(expect.any(String));
-			});
+		it("returns an error if user can't be found", async () => {
+			try {
+				await User.remove(6543210);
+			} catch (error) {
+				expect(error.message).toEqual(
+					`Could not find user id: 6543210`
+				);
+			}
+		});
+	});
 
-			it("returns an error if password can't be authenticated", async () => {
-				try {
-					let user = await User.getAll(TEST_DATA.user.email);
-					await user.authenticate("wrongPW");
-				} catch (error) {
-					expect(error.message).toEqual(`Invalid email/password`);
-				}
-			});
+	describe("User.authenticate()", () => {
+		it("authenticates the user", async () => {
+			let user = await User.getAll(TEST_DATA.user.email);
+			let token = await user.authenticate("secret");
+			expect(token).toEqual(expect.any(String));
+		});
+
+		it("returns an error if password can't be authenticated", async () => {
+			try {
+				let user = await User.getAll(TEST_DATA.user.email);
+				await user.authenticate("wrongPW");
+			} catch (error) {
+				expect(error.message).toEqual(`Invalid email/password`);
+			}
 		});
 	});
 

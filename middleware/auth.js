@@ -7,6 +7,7 @@ const User = require("../models/userModel");
 const Tradesman = require("../models/tradesmanModel");
 const Projects = require("../models/projectModel");
 const Chat = require("../models/chatModel");
+const Photo = require("../models/PhotoModel");
 
 /** Middleware: Authenticate user. */
 
@@ -22,7 +23,6 @@ function authenticateJWT(req, res, next) {
 }
 
 /** Middleware: Requires user is authenticated. */
-
 function ensureLoggedIn(req, res, next) {
 	if (!req.user) {
 		const err = new ExpressError(`Unauthorized`, 401);
@@ -63,6 +63,7 @@ async function ensureCorrectUser(req, res, next) {
  */
 async function ensureValidUser(req, res, next) {
 	try {
+		userGardClause(req.user);
 		let userProjects;
 		// check is user_type if "user" or "tradesman" - used to determine which model to call
 		if (req.user.user_type === "user") {
@@ -92,6 +93,7 @@ async function ensureValidUser(req, res, next) {
  */
 async function ensureValidChatUser(req, res, next) {
 	try {
+		userGardClause(req.user);
 		let projectChat = await Chat.getUserChat(req.user);
 		// checks if the user id is included in the projectChat.
 		// only allow user to proceed if a valid id is found
@@ -116,10 +118,86 @@ async function ensureValidChatUser(req, res, next) {
 	}
 }
 
+/** Middleware: Requires project id
+ * check that only the user can only update / delete projects they are working on
+ */
+async function ensureValidReviewUser(req, res, next) {
+	try {
+		userGardClause(req.user);
+		let userProjects;
+		// check is user_type if "user" or "tradesman" - used to determine which model to call
+		if (req.user.user_type === "user") {
+			userProjects = await Projects.allUser(req.user.id);
+		} else {
+			const err = new ExpressError(`Unauthorized`, 401);
+			return next(err);
+		}
+
+		// checks if the project id is included in the userProjects list.
+		// only allow user to proceed if a valid id is found
+		for (let project of userProjects) {
+			if (project.id === +req.params.projectId) {
+				return next();
+			}
+		}
+		const err = new ExpressError(`Unauthorized`, 401);
+		return next(err);
+	} catch (e) {
+		// errors would happen here if we made a request and req.user is undefined
+		const err = new ExpressError(`Unauthorized`, 401);
+		return next(err);
+	}
+}
+
+/** Middleware: Requires project id
+ * check that the user can only update / delete photos for projects they are involved with
+ */
+async function ensureValidPhotoUser(req, res, next) {
+	try {
+		userGardClause(req.user);
+
+		// if updated or create project id will be in body
+		if (req.body.project_id) {
+			let userProjects;
+			// check is user_type if "user" or "tradesman" - used to determine which model to call
+			if (req.user.user_type === "user") {
+				userProjects = await Projects.allUser(req.user.id);
+			} else {
+				const err = new ExpressError(`Unauthorized`, 401);
+				return next(err);
+			}
+
+			// checks if the project id is included in the userProjects list.
+			// only allow user to proceed if a valid id is found
+			if (req.body.project_id) {
+				for (let project of userProjects) {
+					if (project.id === +req.body.project_id) {
+						return next();
+					}
+				}
+			}
+		}
+
+		// if project_id is not in the body we need to check the photo itself
+		let photo = await Photo.get(req.params.id);
+		if (photo.user_id === req.user.id) {
+			return next();
+		}
+		const err = new ExpressError(`Unauthorized`, 401);
+		return next(err);
+	} catch (e) {
+		// errors would happen here if we made a request and req.user is undefined
+		const err = new ExpressError(`Unauthorized`, 401);
+		return next(err);
+	}
+}
+
 module.exports = {
 	authenticateJWT,
 	ensureLoggedIn,
 	ensureCorrectUser,
 	ensureValidUser,
 	ensureValidChatUser,
+	ensureValidReviewUser,
+	ensureValidPhotoUser,
 };

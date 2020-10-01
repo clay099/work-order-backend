@@ -57,3 +57,6 @@ INSERT INTO projects(user_id, description, street_address,address_city, address_
   INSERT INTO reviews(user_id, tradesmen_id, project_id, review_comment, review_rating) VALUES(4,1,7, 'great work, can''t recomment more highly', 10),
   (4, 2, 8,'Very professional and highyl efficient', 9), 
   (4, 3, 10, 'work not up to standards', 3);
+
+  INSERT INTO photos(project_id, photo_link, description, after, user_id) VALUES (8, 'https://secure.img1-fg.wfcdn.com/im/38471540/resize-h800%5Ecompr-r85/1096/109651865/11+Piece+Rattan+Sofa+Seating+Group+with+Cushions.jpg', 'Patio after reno', TRUE, 4), 
+  (8, 'https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1500/at%2FVida_Cornelious_before_tagged','Patio before shot', FALSE, 4);

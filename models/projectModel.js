@@ -1,9 +1,5 @@
 const db = require("../db");
 const ExpressError = require("../helpers/expressError");
-const createToken = require("../helpers/createToken");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { BCRYPT_WORK_FACTOR } = require("../config");
 const baseModel = require("./baseModel");
 
 /**collection of related methods for project */

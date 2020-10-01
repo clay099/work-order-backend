@@ -1,0 +1,54 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "http://example.com/example.json",
+	"type": "object",
+	"title": "The root schema",
+	"description": "The root schema comprises the entire JSON document.",
+	"default": {},
+	"examples": [
+		{
+			"project_id": 1,
+			"photo_link": "https://secure.img1-fg.wfcdn.com/im/38471540/resize-h800%5Ecompr-r85/1096/109651865/11+Piece+Rattan+Sofa+Seating+Group+with+Cushions.jpg",
+			"description": "Patio after reno",
+			"after": true
+		}
+	],
+	"required": ["project_id", "photo_link", "description", "after"],
+	"properties": {
+		"project_id": {
+			"$id": "#/properties/project_id",
+			"type": "integer",
+			"title": "The project_id schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": 0,
+			"examples": [1]
+		},
+		"photo_link": {
+			"$id": "#/properties/photo_link",
+			"type": "string",
+			"title": "The photo_link schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": [
+				"https://secure.img1-fg.wfcdn.com/im/38471540/resize-h800%5Ecompr-r85/1096/109651865/11+Piece+Rattan+Sofa+Seating+Group+with+Cushions.jpg"
+			]
+		},
+		"description": {
+			"$id": "#/properties/description",
+			"type": "string",
+			"title": "The description schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": "",
+			"examples": ["Patio after reno"]
+		},
+		"after": {
+			"$id": "#/properties/after",
+			"type": "boolean",
+			"title": "The after schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": false,
+			"examples": [true]
+		}
+	},
+	"additionalProperties": true
+}

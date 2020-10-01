@@ -2,11 +2,11 @@
 const request = require("supertest");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { BCRYPT_WORK_FACTOR } = require("../../config");
+const { BCRYPT_WORK_FACTOR } = require("./config");
 
 // app imports
-const app = require("../../app");
-const db = require("../../db");
+const app = require("./app");
+const db = require("./db");
 
 // global auth variable to store things for all the tests
 const TEST_DATA = {};
@@ -93,15 +93,18 @@ async function beforeEachHook(TEST_DATA) {
 		TEST_DATA.completedProject2 = completedProject2.rows[0];
 
 		// add chat for completedProject1 (from user)
-		await db.query(
-			"INSERT INTO chat (project_id, user_id, comment) VALUES ($1, $2, 'thank you for your work)",
+		const userChat = await db.query(
+			`INSERT INTO chat (project_id, user_id, comment) VALUES ($1, $2, 'thank you for your work') RETURNING *`,
 			[TEST_DATA.completedProject1.id, TEST_DATA.user.id]
 		);
+		TEST_DATA.userChat = userChat.rows[0];
+
 		// add chat for CompletedProject1 (from tradesman)
-		await db.query(
-			"INSERT INTO chat (project_id, tradesmen_id, comment) VALUES ($1, $2, 'let me know if there is anything else i can do')",
+		const tradesmanChat = await db.query(
+			`INSERT INTO chat (project_id, tradesmen_id, comment) VALUES ($1, $2, 'let me know if there is anything else i can do') RETURNING *`,
 			[TEST_DATA.completedProject1.id, TEST_DATA.tradesman.id]
 		);
+		TEST_DATA.tradesmanChat = tradesmanChat.rows[0];
 
 		// add review for completedProject1
 		await db.query(
@@ -145,6 +148,7 @@ async function afterAllHook() {
 		console.error(err);
 	}
 }
+test.skip("skip", () => {});
 
 module.exports = {
 	afterAllHook,

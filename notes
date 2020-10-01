@@ -1,5 +1,3 @@
-- emails are not validated - just need to be string ATM 
 - think about sending a email to verify user
 - add passport once frontend is done
 - address look for library where user types address and it comes up
-- add stronger password verification - 6 characters, special character

@@ -53,6 +53,7 @@ CREATE TABLE photos (
   project_id INTEGER NOT NULL,
   photo_link TEXT NOT NULL,
   description TEXT NOT NULL, 
+  user_id INTEGER,
   after BOOLEAN NOT NULL DEFAULT FALSE  --if false photo is before if true photo is after
 );
 
@@ -79,4 +80,4 @@ ALTER TABLE photos ADD CONSTRAINT fk_photos FOREIGN KEY (project_id) REFERENCES 
 
 ALTER TABLE chat ADD CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users ON DELETE CASCADE;
 ALTER TABLE chat ADD CONSTRAINT fk_tradesmen FOREIGN KEY (tradesmen_id) REFERENCES tradesmen ON DELETE CASCADE;
-ALTER TABLE chat ADD CONSTRAINT fk_projects FOREIGN KEY (tradesmen_id) REFERENCES projects ON DELETE CASCADE;
+ALTER TABLE chat ADD CONSTRAINT fk_projects FOREIGN KEY (project_id) REFERENCES projects ON DELETE CASCADE;

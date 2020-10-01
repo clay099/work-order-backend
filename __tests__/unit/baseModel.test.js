@@ -49,7 +49,6 @@ describe("model.sqlForDelete()", () => {
 		let table = "users";
 		let key = "id";
 		let id = [1];
-		// debugger;
 		const { query, id: returnedId } = model.constructor.sqlForDelete(
 			table,
 			key,
@@ -58,6 +57,6 @@ describe("model.sqlForDelete()", () => {
 
 		expect(query).toEqual(`DELETE FROM users WHERE id=$1 RETURNING *`);
 
-		expect(returnedId).toEqual([id]);
+		expect(returnedId).toEqual(id);
 	});
 });

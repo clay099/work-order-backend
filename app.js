@@ -21,6 +21,7 @@ const tradesmenRoutes = require("./routes/tradesmen");
 const projectsRoutes = require("./routes/projects");
 const chatRoutes = require("./routes/chats");
 const reviewRoutes = require("./routes/reviews");
+const photosRoutes = require("./routes/photos");
 const authRoutes = require("./routes/auth");
 
 // user routes
@@ -29,6 +30,7 @@ app.use("/tradesmen", tradesmenRoutes);
 app.use("/projects", projectsRoutes);
 app.use("/chat", chatRoutes);
 app.use("/reviews", reviewRoutes);
+app.use("/photos", photosRoutes);
 app.use("/", authRoutes);
 
 /** 404 handler */

@@ -10,7 +10,7 @@ const {
 	afterAllHook,
 	beforeAllHook,
 	beforeEachHook,
-} = require("./config");
+} = require("../../testConfig");
 
 describe("test Tradesman Model", () => {
 	beforeAll(async function () {
@@ -68,7 +68,7 @@ describe("test Tradesman Model", () => {
 	describe("Tradesman.all()", () => {
 		it("gets all tradesman", async () => {
 			let resp = await Tradesman.all();
-			expect(resp[0].first_name).toEqual(TEST_DATA.tradesman.first_name);
+			expect(resp[0].first_name).toEqual(TEST_DATA.tradesman2.first_name);
 		});
 	});
 
@@ -114,9 +114,7 @@ describe("test Tradesman Model", () => {
 			let updatedTradesman = await tradesman.update({
 				first_name: "updatedFirstName",
 			});
-			expect((await updatedTradesman).first_name).toEqual(
-				"updatedFirstName"
-			);
+			expect(updatedTradesman.first_name).toEqual("updatedFirstName");
 			expect(Object.keys(updatedTradesman)).toHaveLength(7);
 		});
 

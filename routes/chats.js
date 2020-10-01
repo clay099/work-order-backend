@@ -25,6 +25,7 @@ router.post("/", ensureLoggedIn, async (req, res, next) => {
 		const chat = await Chat.create({
 			...req.body,
 			user_id: req.user.id,
+			user_type: req.user.user_type,
 		});
 		return res.status(201).json({ chat });
 	} catch (e) {

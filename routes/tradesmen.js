@@ -6,6 +6,7 @@ const tradesmanSchema = require("../schema/tradesmanSchema.json");
 const updateTradesmanSchema = require("../schema/updateTradesmanSchema.json");
 const { ensureCorrectUser } = require("../middleware/auth");
 const createToken = require("../helpers/createToken");
+const validator = require("validator");
 
 const router = new express.Router();
 
@@ -30,6 +31,13 @@ router.post("/", async (req, res, next) => {
 		if (!result.valid) {
 			let listErr = result.errors.map((e) => e.stack);
 			let err = new ExpressError(listErr, 400);
+			return next(err);
+		}
+		if (!validator.isEmail(req.body.email)) {
+			let err = new ExpressError(
+				`${req.body.email} is not a valid email`,
+				400
+			);
 			return next(err);
 		}
 		// we know tradesman passes and create in DB and return as json

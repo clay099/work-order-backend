@@ -1,11 +1,6 @@
 const db = require("../db");
 const ExpressError = require("../helpers/expressError");
-const createToken = require("../helpers/createToken");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { BCRYPT_WORK_FACTOR } = require("../config");
 const baseModel = require("./baseModel");
-const { query } = require("../db");
 
 /**collection of related methods for Chat */
 
@@ -21,7 +16,7 @@ class Chat extends baseModel {
 	}
 
 	/** creates a new chat message */
-	static async create({ project_id, user_id, comment, sent_at, user_type }) {
+	static async create({ project_id, user_id, comment, user_type }) {
 		let result;
 		try {
 			let items;
@@ -31,21 +26,13 @@ class Chat extends baseModel {
 					project_id,
 					user_id,
 					comment,
-					sent_at,
 				};
-				returning = [
-					"id",
-					"project_id",
-					"user_id",
-					"comment",
-					"sent_at",
-				];
+				returning = ["id", "project_id", "user_id", "comment"];
 			} else {
 				items = {
 					project_id,
 					tradesmen_id,
 					comment,
-					sent_at,
 				};
 				returning = [
 					"id",
@@ -72,7 +59,7 @@ class Chat extends baseModel {
 
 	/** get all chats */
 	static async all() {
-		const result = await db.query(`SELECT * FROM chat ORDER BY created_at`);
+		const result = await db.query(`SELECT * FROM chat ORDER BY sent_at`);
 		return result.rows.map((p) => new Chat(p));
 	}
 
@@ -91,15 +78,23 @@ class Chat extends baseModel {
 			throw err;
 		}
 		// can only look up projects you are involved with (either as user or tradesman)
+		let valid = false;
 		if (user.user_type === "user") {
-			if (user.id !== result.rows[0].user_id) {
-				return new ExpressError(`Unauthorized`, 401);
+			for (let chat of result.rows) {
+				if (user.id === chat.user_id) {
+					valid = true;
+				}
 			}
 		} else {
-			if (user.id !== result.rows[0].tradesmen_id) {
-				return new ExpressError(`Unauthorized`, 401);
+			for (let chat of result.rows) {
+				if (user.id === chat.tradesmen_id) {
+					valid = true;
+				}
 			}
 		}
+		// if in all of the chats the user was not involved return user is unauthorized to access
+		if (!valid) return new ExpressError(`Unauthorized`, 401);
+
 		return result.rows.map((p) => new Chat(p));
 	}
 

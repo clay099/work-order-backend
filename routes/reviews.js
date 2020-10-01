@@ -5,7 +5,7 @@ const Project = require("../models/projectModel");
 const jsonschema = require("jsonschema");
 const reviewSchema = require("../schema/reviewSchema.json");
 const updateReviewSchema = require("../schema/updateReviewSchema.json");
-const { ensureLoggedIn, ensureValidChatUser } = require("../middleware/auth");
+const { ensureLoggedIn, ensureValidReviewUser } = require("../middleware/auth");
 
 const router = new express.Router();
 
@@ -21,7 +21,6 @@ router.post("/", ensureLoggedIn, async (req, res, next) => {
 			let err = new ExpressError(listErr, 400);
 			return next(err);
 		}
-
 		let project = await Project.get(req.body.project_id, req.user);
 		// we know review passes and create in DB and return as json
 		const review = await Review.create({
@@ -46,7 +45,7 @@ router.get("/:id", ensureLoggedIn, async (req, res, next) => {
 });
 
 /** PATCH /[projectId] {reviewData, _token: tokenDate} => {review: reviewData} */
-router.patch("/:projectId", ensureValidChatUser, async (req, res, next) => {
+router.patch("/:projectId", ensureValidReviewUser, async (req, res, next) => {
 	try {
 		if (
 			"user_id" in req.body ||
@@ -67,8 +66,8 @@ router.patch("/:projectId", ensureValidChatUser, async (req, res, next) => {
 			let err = new ExpressError(listErr, 400);
 			return next(err);
 		}
-		let r = await Review.get(req.params.projectId, req.user);
 
+		let r = await Review.get(req.params.projectId, req.user);
 		let review = await r.update(req.body);
 
 		return res.json({ review });
@@ -78,9 +77,9 @@ router.patch("/:projectId", ensureValidChatUser, async (req, res, next) => {
 });
 
 /** DELETE /[id] => {message: "review deleted"} */
-router.delete("/:id", ensureValidChatUser, async (req, res, next) => {
+router.delete("/:projectId", ensureValidReviewUser, async (req, res, next) => {
 	try {
-		await Review.remove(req.params.id);
+		await Review.remove(req.params.projectId);
 		return res.json({ message: "review deleted" });
 	} catch (e) {
 		return next(e);

@@ -10,7 +10,7 @@ const {
 	afterAllHook,
 	beforeAllHook,
 	beforeEachHook,
-} = require("./config");
+} = require("../../testConfig");
 
 describe("test Project Model", () => {
 	beforeAll(async function () {

@@ -1,11 +1,6 @@
 const db = require("../db");
 const ExpressError = require("../helpers/expressError");
-const createToken = require("../helpers/createToken");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { BCRYPT_WORK_FACTOR } = require("../config");
 const baseModel = require("./baseModel");
-const { query } = require("../db");
 
 /**collection of related methods for Chat */
 
@@ -60,7 +55,7 @@ class Review extends baseModel {
 		const review = result.rows[0];
 
 		if (review === undefined) {
-			const err = new ExpressError("Could not create comment", 400);
+			const err = new ExpressError("Could not create review", 400);
 			throw err;
 		}
 		return new Review(review);

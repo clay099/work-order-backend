@@ -33,7 +33,7 @@ router.get("/new", async (req, res, next) => {
 		let projects;
 		// checks if user or tradesman is requesting projects
 		if (req.user.user_type === "tradesman") {
-			projects = await Project.NewJobs(req.user.id);
+			projects = await Project.newProject(req.user.id);
 		} else {
 			throw new ExpressError("unauthorized", 400);
 		}

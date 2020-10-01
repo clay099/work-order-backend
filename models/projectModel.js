@@ -101,12 +101,13 @@ class Project extends baseModel {
 		);
 		return result.rows.map((p) => {
 			// remove columns who's value is null
-			for (let column_name in p) {
-				if (p[column_name] === null) {
-					delete p[column_name];
+			let project = new Project(p);
+			for (let column_name in project) {
+				if (project[column_name] === null) {
+					delete project[column_name];
 				}
 			}
-			return new Project(p);
+			return project;
 		});
 	}
 
@@ -118,16 +119,17 @@ class Project extends baseModel {
 		);
 		return result.rows.map((p) => {
 			// remove columns who's value is null
-			for (let column_name in p) {
-				if (p[column_name] === null) {
-					delete p[column_name];
+			let project = new Project(p);
+			for (let column_name in project) {
+				if (project[column_name] === null) {
+					delete project[column_name];
 				}
 			}
-			return new Project(p);
+			return project;
 		});
 	}
 
-	static async NewJobs() {
+	static async newProject() {
 		const result = await db.query(
 			`SELECT * FROM projects WHERE status=$1 ORDER BY created_at DESC`,
 			["auction"]
@@ -135,13 +137,16 @@ class Project extends baseModel {
 		return result.rows.map((p) => {
 			// remove columns who's value is null
 			for (let column_name in p) {
-				if (p[column_name] === null) {
-					delete p[column_name];
+				let project = new Project(p);
+				for (let column_name in project) {
+					if (project[column_name] === null) {
+						delete project[column_name];
+					}
 				}
 				// delete exact street address
-				delete p.street_address;
+				delete project.street_address;
+				return project;
 			}
-			return new Project(p);
 		});
 	}
 
@@ -204,6 +209,7 @@ class Project extends baseModel {
 		}
 		let project = result.rows[0];
 
+		// only an issue if id has been changed. should not be strictly required
 		if (project === undefined) {
 			const err = new ExpressError(
 				`Could not find Project id: ${id}`,

@@ -43,6 +43,16 @@ async function beforeEachHook(TEST_DATA) {
 
 		TEST_DATA.user = user.rows[0];
 
+		// add a second user who won't be linked to any projects
+		const user2 = await db.query(
+			`INSERT INTO users (first_name, last_name, email, phone, street_address, address_city, address_zip, address_country, password)
+      VALUES ('user2FirstName', 'user2LastName', 'testUser2@gmail.com', 2345678901, '1 Sacramento Street', 'Sacramento', 98756, 'USA', $1) 
+      RETURNING *`,
+			[hashedPassword]
+		);
+
+		TEST_DATA.user2 = user2.rows[0];
+
 		// do the same for tradesman
 		const tradesman = await db.query(
 			"INSERT INTO tradesmen (first_name, last_name, email, phone, password) VALUES ('tradesmanFirstName', 'tradesmanLastName', 'testTradesman@gmail.com', 0987654321, $1) RETURNING *",
@@ -51,16 +61,24 @@ async function beforeEachHook(TEST_DATA) {
 
 		TEST_DATA.tradesman = tradesman.rows[0];
 
+		// second tradesman who won't be linked to any projects
+		const tradesman2 = await db.query(
+			"INSERT INTO tradesmen (first_name, last_name, email, phone, password) VALUES ('tradesman2FirstName', 'tradesman2LastName', 'testTradesman2@gmail.com', 9876543210, $1) RETURNING *",
+			[hashedPassword]
+		);
+
+		TEST_DATA.tradesman2 = tradesman2.rows[0];
+
 		// add a new project
 		const newProject = await db.query(
-			"INSERT INTO jobs (user_id, description, street_address, address_city, address_zip, address_country) VALUES ($1, 'paint kitchen', '1 Sacramento Street', 'Sacramento', 98756, 'USA') RETURNING *",
+			"INSERT INTO projects (user_id, description, street_address, address_city, address_zip, address_country) VALUES ($1, 'paint kitchen', '1 Sacramento Street', 'Sacramento', 98756, 'USA') RETURNING *",
 			[TEST_DATA.user.id]
 		);
 		TEST_DATA.newProject = newProject.rows[0];
 
 		// add a completed project - comments to be added to this project
 		const completedProject1 = await db.query(
-			"INSERT INTO jobs (user_id, description, street_address, address_city, address_zip, address_country, price, tradesmen_id, status, completed_at, issues) VALUES ($1, 'paint kitchen', '1 Sacramento Street', 'Sacramento', 98756, 'USA', 500, $2, 'completed', current_timestamp, 'paint different color') RETURNING *",
+			"INSERT INTO projects (user_id, description, street_address, address_city, address_zip, address_country, price, tradesmen_id, status, completed_at, issues) VALUES ($1, 'paint kitchen', '1 Sacramento Street', 'Sacramento', 98756, 'USA', 500, $2, 'completed', current_timestamp, 'paint different color') RETURNING *",
 			[TEST_DATA.user.id, TEST_DATA.tradesman.id]
 		);
 
@@ -68,7 +86,7 @@ async function beforeEachHook(TEST_DATA) {
 
 		// add a completed project which will have no third party attachments past user_id & tradesman_id
 		const completedProject2 = await db.query(
-			"INSERT INTO jobs (user_id, description, street_address, address_city, address_zip, address_country, price, tradesmen_id, status, completed_at) VALUES ($1, 'Fix kitchen sink', '1 Sacramento Street', 'Sacramento', 98756, 'USA', 500, $2, 'completed', current_timestamp) RETURNING *",
+			"INSERT INTO projects (user_id, description, street_address, address_city, address_zip, address_country, price, tradesmen_id, status, completed_at) VALUES ($1, 'Fix kitchen sink', '1 Sacramento Street', 'Sacramento', 98756, 'USA', 500, $2, 'completed', current_timestamp) RETURNING *",
 			[TEST_DATA.user.id, TEST_DATA.tradesman.id]
 		);
 

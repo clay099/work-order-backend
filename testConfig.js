@@ -117,12 +117,15 @@ async function beforeEachHook(TEST_DATA) {
 		);
 
 		// add photos for completedProject1
-		await db.query(
-			`INSERT INTO photos (project_id, photo_link, description, after) VALUES 
-      ($1, 'before photo link', 'kitchen before', false),
-			($1, "after photo link", "kitchen before", true)`,
-			[TEST_DATA.completedProject1.id]
+		const photo = await db.query(
+			`INSERT INTO photos (project_id, photo_link, description, after, user_id) VALUES 
+      ($1, 'before photo link', 'kitchen before', false, $2) RETURNING *`,
+			[
+				TEST_DATA.completedProject1.id,
+				TEST_DATA.completedProject1.user_id,
+			]
 		);
+		TEST_DATA.photo = photo.rows[0];
 	} catch (error) {
 		console.error(error);
 	}

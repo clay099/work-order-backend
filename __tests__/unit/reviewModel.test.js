@@ -29,7 +29,7 @@ describe("test Review Model", () => {
 		let review;
 		beforeEach(async function () {
 			let num = random_num();
-			// create new project as project can only have one reivew
+			// create new project as project can only have one review
 			let resp = await db.query(
 				"INSERT INTO projects (user_id, description, street_address, address_city, address_zip, address_country, price, tradesmen_id, status, completed_at, issues) VALUES ($1, $2, '1 Sacramento Street', 'Sacramento', 98756, 'USA', 500, $3, 'completed', current_timestamp, 'paint different color') RETURNING *",
 				[TEST_DATA.user.id, `new Project${num}`, TEST_DATA.tradesman.id]

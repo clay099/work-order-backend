@@ -58,7 +58,7 @@ describe("POST /tradesmen", () => {
 		expect(resp.body).toHaveProperty(`token`);
 	});
 
-	it("returns an error for each missing fields", async () => {
+	it("returns an error for each missing field", async () => {
 		let resp = await request(app).post("/tradesmen");
 		expect(resp.statusCode).toBe(400);
 		let errorMessage = [

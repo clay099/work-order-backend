@@ -44,7 +44,7 @@ describe("POST /users", () => {
 			address_country: "United States of America",
 			password: "password",
 		};
-		const resp = await await request(app).post("/users").send(user);
+		const resp = await request(app).post("/users").send(user);
 		expect(resp.statusCode).toBe(201);
 		user.password = expect.any(String);
 		user.phone = expect.any(String);
@@ -53,7 +53,7 @@ describe("POST /users", () => {
 		expect(resp.body).toHaveProperty(`token`);
 	});
 
-	it("returns an error for each missing fields", async () => {
+	it("returns an error for each missing field", async () => {
 		let resp = await request(app).post("/users");
 		expect(resp.statusCode).toBe(400);
 		let errorMessage = [

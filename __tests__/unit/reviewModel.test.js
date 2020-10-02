@@ -1,5 +1,6 @@
 process.env.NODE_ENV = "test";
 const Review = require("../../models/reviewModel");
+const db = require("../../db");
 console.error = jest.fn();
 
 const {

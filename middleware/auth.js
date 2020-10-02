@@ -63,7 +63,6 @@ async function ensureCorrectUser(req, res, next) {
  */
 async function ensureValidUser(req, res, next) {
 	try {
-		userGardClause(req.user);
 		let userProjects;
 		// check is user_type if "user" or "tradesman" - used to determine which model to call
 		if (req.user.user_type === "user") {

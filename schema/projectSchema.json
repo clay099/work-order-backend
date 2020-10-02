@@ -10,7 +10,7 @@
 			"description": "fix kitchen sink",
 			"street_address": "1 Sacramento Street",
 			"address_city": "San Francisco",
-			"address_zip": "94687",
+			"address_zip": 94687,
 			"address_country": "United States of America",
 			"created_at": 123,
 			"price": 125.35,
@@ -54,11 +54,11 @@
 		},
 		"address_zip": {
 			"$id": "#/properties/address_zip",
-			"type": "string",
+			"type": "integer",
 			"title": "The address_zip schema",
 			"description": "An explanation about the purpose of this instance.",
 			"default": "",
-			"examples": ["94687"]
+			"examples": [94687]
 		},
 		"address_country": {
 			"$id": "#/properties/address_country",

@@ -11,7 +11,7 @@ const router = new express.Router();
 /** GET / => {projects : [projectData], [project2Data], ...}
  * can only get projects which you are involved with either as user or tradesman
  */
-router.get("/", async (req, res, next) => {
+router.get("/", ensureLoggedIn, async (req, res, next) => {
 	try {
 		let projects;
 		// checks if user or tradesman is requesting projects
@@ -27,15 +27,17 @@ router.get("/", async (req, res, next) => {
 	}
 });
 
-/** POST / {_token: tokenDate} => {projects : [projectData], [project2Data], ...} */
-router.get("/new", async (req, res, next) => {
+/** GET /new / {_token: tokenDate} => {projects : [projectData], [project2Data], ...}
+ * only a tradesman can see new projects which are in the "auction" status
+ */
+router.get("/new", ensureLoggedIn, async (req, res, next) => {
 	try {
 		let projects;
 		// checks if user or tradesman is requesting projects
 		if (req.user.user_type === "tradesman") {
 			projects = await Project.newProject(req.user.id);
 		} else {
-			throw new ExpressError("unauthorized", 400);
+			throw new ExpressError("Unauthorized", 401);
 		}
 
 		return res.json({ projects });
@@ -44,9 +46,16 @@ router.get("/new", async (req, res, next) => {
 	}
 });
 
-/** POST / {projectData, _token: tokenDate} => {project: newProject} */
+/** POST / {projectData, _token: tokenDate} => {project: newProject}
+ * only a user can start a project
+ */
 router.post("/", ensureLoggedIn, async (req, res, next) => {
 	try {
+		// checks that a user is requesting to create a project
+		if (req.user.user_type !== "user") {
+			throw new ExpressError("Unauthorized", 401);
+		} else {
+		}
 		// try project against schema
 		const result = jsonschema.validate(req.body, projectSchema);
 

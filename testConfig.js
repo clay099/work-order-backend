@@ -110,7 +110,7 @@ async function beforeEachHook(TEST_DATA) {
 
 		// add a completed project - comments to be added to this project
 		const completedProject1 = await db.query(
-			"INSERT INTO projects (user_id, description, street_address, address_city, address_zip, address_country, price, tradesmen_id, status, completed_at, issues) VALUES ($1, 'paint kitchen', '1 Sacramento Street', 'Sacramento', 98756, 'USA', 500, $2, 'completed', current_timestamp, 'paint different color') RETURNING *",
+			"INSERT INTO projects (user_id, description, street_address, address_city, address_zip, address_country, price, tradesmen_id, status, completed_at, issues) VALUES ($1, 'paint house', '1 Sacramento Street', 'Sacramento', 98756, 'USA', 500, $2, 'completed', current_timestamp, 'paint different color') RETURNING *",
 			[TEST_DATA.user.id, TEST_DATA.tradesman.id]
 		);
 

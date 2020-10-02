@@ -13,7 +13,7 @@
 			"phone": "3055125425",
 			"street_address": "1 Sacramento Street",
 			"address_city": "San Francisco",
-			"address_zip": "94687",
+			"address_zip": 94687,
 			"address_country": "United States of America",
 			"password": "password123"
 		}

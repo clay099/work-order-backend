@@ -1,6 +1,4 @@
 process.env.NODE_ENV = "test";
-const db = require("../../db");
-const app = require("../../app");
 const Chat = require("../../models/chatModel");
 console.error = jest.fn();
 

@@ -10,7 +10,7 @@ const validator = require("validator");
 
 const router = new express.Router();
 
-/** GET / => {users : [userData], [user2Data], ...} */
+/** GET / => {users : [{userData}, {user2Data}, ...]} */
 router.get("/", async (req, res, next) => {
 	try {
 		let users = await User.all();
@@ -75,6 +75,16 @@ router.patch("/:id", ensureCorrectUser, async (req, res, next) => {
 			let err = new ExpressError(listErr, 400);
 			return next(err);
 		}
+
+		// checks if email is to be updated & if it is checks that it is a valid email
+		if (req.body.email && !validator.isEmail(req.body.email)) {
+			let err = new ExpressError(
+				`${req.body.email} is not a valid email`,
+				400
+			);
+			return next(err);
+		}
+
 		let u = await User.get(req.params.id);
 
 		let user = await u.update(req.body);

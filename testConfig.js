@@ -3,6 +3,7 @@ const request = require("supertest");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { BCRYPT_WORK_FACTOR } = require("./config");
+const createToken = require("./helpers/createToken");
 
 // app imports
 const app = require("./app");
@@ -43,6 +44,14 @@ async function beforeEachHook(TEST_DATA) {
 
 		TEST_DATA.user = user.rows[0];
 
+		const userToken = createToken(
+			TEST_DATA.user.email,
+			TEST_DATA.user.id,
+			"user"
+		);
+
+		TEST_DATA.userToken = userToken;
+
 		// add a second user who won't be linked to any projects
 		const user2 = await db.query(
 			`INSERT INTO users (first_name, last_name, email, phone, street_address, address_city, address_zip, address_country, password)
@@ -53,6 +62,13 @@ async function beforeEachHook(TEST_DATA) {
 
 		TEST_DATA.user2 = user2.rows[0];
 
+		const user2Token = createToken(
+			TEST_DATA.user2.email,
+			TEST_DATA.user2.id,
+			"user"
+		);
+		TEST_DATA.user2Token = user2Token;
+
 		// do the same for tradesman
 		const tradesman = await db.query(
 			"INSERT INTO tradesmen (first_name, last_name, email, phone, password) VALUES ('tradesmanFirstName', 'tradesmanLastName', 'testTradesman@gmail.com', 0987654321, $1) RETURNING *",
@@ -61,6 +77,14 @@ async function beforeEachHook(TEST_DATA) {
 
 		TEST_DATA.tradesman = tradesman.rows[0];
 
+		const tradesmanToken = createToken(
+			TEST_DATA.tradesman.email,
+			TEST_DATA.tradesman.id,
+			"tradesman"
+		);
+
+		TEST_DATA.tradesmanToken = tradesmanToken;
+
 		// second tradesman who won't be linked to any projects
 		const tradesman2 = await db.query(
 			"INSERT INTO tradesmen (first_name, last_name, email, phone, password) VALUES ('tradesman2FirstName', 'tradesman2LastName', 'testTradesman2@gmail.com', 9876543210, $1) RETURNING *",
@@ -68,6 +92,14 @@ async function beforeEachHook(TEST_DATA) {
 		);
 
 		TEST_DATA.tradesman2 = tradesman2.rows[0];
+
+		const tradesman2Token = createToken(
+			TEST_DATA.tradesman2.email,
+			TEST_DATA.tradesman2.id,
+			"tradesman"
+		);
+
+		TEST_DATA.tradesman2Token = tradesman2Token;
 
 		// add a new project
 		const newProject = await db.query(

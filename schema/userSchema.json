@@ -80,7 +80,7 @@
 		},
 		"address_zip": {
 			"$id": "#/properties/address_zip",
-			"type": "string",
+			"type": "integer",
 			"title": "The address_zip schema",
 			"description": "An explanation about the purpose of this instance.",
 			"default": "",

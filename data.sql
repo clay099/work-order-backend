@@ -14,7 +14,7 @@ CREATE TABLE users (
   phone BIGINT NOT NULL UNIQUE,
   street_address TEXT NOT NULL,
   address_city TEXT NOT NULL,
-  address_zip TEXT NOT NULL,
+  address_zip INTEGER NOT NULL,
   address_country TEXT NOT NULL,
   password TEXT NOT NULL
 );
@@ -38,7 +38,7 @@ CREATE TABLE projects (
   description TEXT NOT NULL,
   street_address TEXT NOT NULL,
   address_city TEXT NOT NULL,
-  address_zip TEXT NOT NULL,
+  address_zip INTEGER NOT NULL,
   address_country TEXT NOT NULL,  
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   price NUMERIC,

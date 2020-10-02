@@ -12,6 +12,10 @@ const router = new express.Router();
 /** POST / {reviewData, _token: tokenDate} => {review: newReview} */
 router.post("/", ensureLoggedIn, async (req, res, next) => {
 	try {
+		// checks if tradesman is requesting to update the review
+		if (req.user.user_type === "tradesman") {
+			throw new ExpressError("Unauthorized", 401);
+		}
 		// try review against schema
 		const result = jsonschema.validate(req.body, reviewSchema);
 

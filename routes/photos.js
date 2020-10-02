@@ -4,14 +4,11 @@ const Photo = require("../models/PhotoModel");
 const jsonschema = require("jsonschema");
 const photoSchema = require("../schema/photoSchema.json");
 const updatePhotoSchema = require("../schema/updatePhotoSchema.json");
-const {
-	ensureCorrectUser,
-	ensureValidPhotoUser,
-} = require("../middleware/auth");
+const { ensureValidPhotoUser, ensureLoggedIn } = require("../middleware/auth");
 
 const router = new express.Router();
 
-/** GET / => {photos : [photoData], [photo2Data], ...} */
+/** GET / => {photos : [{photoData}, {photo2Data}, ...]} */
 router.get("/", async (req, res, next) => {
 	try {
 		let photos = await Photo.all();
@@ -43,7 +40,7 @@ router.post("/", ensureValidPhotoUser, async (req, res, next) => {
 });
 
 /** GET /[id] => {photo: photoData} */
-router.get("/:id", ensureValidPhotoUser, async (req, res, next) => {
+router.get("/:id", ensureLoggedIn, async (req, res, next) => {
 	try {
 		const photo = await Photo.get(req.params.id);
 		return res.json({ photo });

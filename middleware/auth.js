@@ -122,7 +122,6 @@ async function ensureValidChatUser(req, res, next) {
  */
 async function ensureValidReviewUser(req, res, next) {
 	try {
-		userGardClause(req.user);
 		let userProjects;
 		// check is user_type if "user" or "tradesman" - used to determine which model to call
 		if (req.user.user_type === "user") {
@@ -153,8 +152,6 @@ async function ensureValidReviewUser(req, res, next) {
  */
 async function ensureValidPhotoUser(req, res, next) {
 	try {
-		userGardClause(req.user);
-
 		// if updated or create project id will be in body
 		if (req.body.project_id) {
 			let userProjects;

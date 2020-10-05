@@ -4,7 +4,8 @@
 	"description": "backend for work-order project",
 	"main": "server.js",
 	"scripts": {
-		"test": "jest --runInBand --coverage",
+		"test": "jest -i",
+		"test_coverage": "jest -i --coverage",
 		"start": "node server.js",
 		"debug": "node server.js --inspect",
 		"seed": "dropdb work-order && createdb work-order && psql work-order < data.sql && psql work-order < seed.sql && dropdb work-order-test && createdb work-order-test && psql work-order-test < data.sql"

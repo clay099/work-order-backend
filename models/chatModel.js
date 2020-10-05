@@ -31,7 +31,7 @@ class Chat extends baseModel {
 			} else {
 				items = {
 					project_id,
-					tradesmen_id,
+					tradesmen_id: user_id,
 					comment,
 				};
 				returning = [
@@ -106,15 +106,14 @@ class Chat extends baseModel {
 		} else {
 			query = `SELECT * FROM chat WHERE tradesmen_id=$1 ORDER BY sent_at DESC`;
 		}
-
 		const result = await db.query(query, [user.id]);
 
 		if (result.rows[0] === undefined) {
 			const err = new ExpressError(
-				`Could not find chat with project id: ${id}`,
+				`Could not find chat associated with user id: ${user.id}`,
 				404
 			);
-			throw err;
+			return err;
 		}
 		return result.rows.map((p) => new Chat(p));
 	}

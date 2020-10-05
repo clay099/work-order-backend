@@ -77,6 +77,24 @@ describe("test Photo Model", () => {
 		});
 	});
 
+	describe("Photo.getAll()", () => {
+		it("gets the photos by project_id", async () => {
+			let resp = await Photo.getAll(TEST_DATA.completedProject1.id);
+			expect(resp[0]).toHaveProperty("id");
+			expect(resp).toHaveLength(1);
+		});
+
+		it("returns an error if no photos are found", async () => {
+			try {
+				let resp = await Photo.getAll(654321);
+			} catch (error) {
+				expect(error.message).toEqual(
+					`Could not find Photos associated with Project id: 654321`
+				);
+			}
+		});
+	});
+
 	describe("Photo.update()", () => {
 		it("updates the one created photo", async () => {
 			let photo = await Photo.get(TEST_DATA.photo.id);

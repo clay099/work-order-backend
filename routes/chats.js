@@ -34,7 +34,7 @@ router.post("/", ensureLoggedIn, async (req, res, next) => {
 });
 
 /** GET /[id] => {chat: chatData} */
-router.get("/:id", ensureLoggedIn, async (req, res, next) => {
+router.get("/:id", ensureValidChatUser, async (req, res, next) => {
 	try {
 		const chat = await Chat.getProjectChat(req.params.id, req.user);
 		return res.json({ chat });
@@ -61,8 +61,19 @@ router.patch("/:id", ensureValidChatUser, async (req, res, next) => {
 			let err = new ExpressError(listErr, 400);
 			return next(err);
 		}
-		let c = await Chat.get(req.params.id, req.user);
-
+		let c = await Chat.get(req.params.id);
+		// check that user can only change their owner comment & same for tradesman
+		if (req.user.user_type === "user") {
+			if (req.user.id !== c.user_id) {
+				let err = new ExpressError("Unauthorized", 401);
+				return next(err);
+			}
+		} else {
+			if (req.user.id !== c.tradesmen_id) {
+				let err = new ExpressError("Unauthorized", 401);
+				return next(err);
+			}
+		}
 		let chat = await c.update(req.body);
 
 		return res.json({ chat });

@@ -92,7 +92,6 @@ async function ensureValidUser(req, res, next) {
  */
 async function ensureValidChatUser(req, res, next) {
 	try {
-		userGardClause(req.user);
 		let projectChat = await Chat.getUserChat(req.user);
 		// checks if the user id is included in the projectChat.
 		// only allow user to proceed if a valid id is found
@@ -141,7 +140,7 @@ async function ensureValidReviewUser(req, res, next) {
 		const err = new ExpressError(`Unauthorized`, 401);
 		return next(err);
 	} catch (e) {
-		// errors would happen here if we made a request and req.user is undefined
+		// errors would happen here if we made a request and req.user is undefined or if user has not chat associated with them
 		const err = new ExpressError(`Unauthorized`, 401);
 		return next(err);
 	}

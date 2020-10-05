@@ -57,6 +57,7 @@ describe("POST /photos", () => {
 		];
 		expect(resp.body.error.message).toEqual(errorMessage);
 	});
+
 	it("returns an error for incorrect paramter type", async () => {
 		let data = {
 			_token: TEST_DATA.userToken,
@@ -152,6 +153,26 @@ describe("PATCH /photos/id", () => {
 			.send(data);
 		expect(resp.statusCode).toBe(200);
 		expect(resp.body.photo.photo_link).toEqual(data.photo_link);
+	});
+
+	it("returns an error for incorrect paramter type", async () => {
+		let data = {
+			_token: TEST_DATA.userToken,
+			project_id: TEST_DATA.completedProject1.id,
+			photo_link: 1,
+			description: 1,
+			after: "true",
+		};
+		let resp = await request(app)
+			.patch(`/photos/${TEST_DATA.photo.id}`)
+			.send(data);
+		expect(resp.statusCode).toBe(400);
+		let errorMessage = [
+			"instance.photo_link is not of a type(s) string",
+			"instance.description is not of a type(s) string",
+			"instance.after is not of a type(s) boolean",
+		];
+		expect(resp.body.error.message).toEqual(errorMessage);
 	});
 
 	it("returns an error if user tries to update the photo id", async () => {

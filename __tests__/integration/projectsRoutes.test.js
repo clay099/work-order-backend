@@ -109,6 +109,28 @@ describe("POST /projects", () => {
 		expect(resp.body.project).toHaveProperty(`user_id`);
 	});
 
+	it("returns an error if the user tries to create the same project twice", async () => {
+		let project = {
+			description: "fix kitchen sink",
+			street_address: "1 Sacramento Street",
+			address_city: "San Francisco",
+			address_zip: 94687,
+			address_country: "United States of America",
+		};
+		// create project
+		await request(app)
+			.post(`/projects`)
+			.send({ _token: TEST_DATA.userToken, ...project });
+		// add same project for second time
+		const resp = await request(app)
+			.post(`/projects`)
+			.send({ _token: TEST_DATA.userToken, ...project });
+		expect(resp.statusCode).toBe(400);
+		expect(resp.body.error.message).toContain(
+			"project 'fix kitchen sink' already created under project id"
+		);
+	});
+
 	it("returns an error for each missing field", async () => {
 		const resp = await request(app)
 			.post(`/projects`)

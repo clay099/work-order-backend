@@ -7,7 +7,7 @@ INSERT INTO users (first_name, last_name, email, phone, street_address, address_
 ('Gustavo', 'Salazar', 'gustavo.salazar@gmail.com', 6523657418, '185 Jenkins Crest', 'Laurinefort', 86937, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Estrella', 'Hettinger', 'Estrella50@hotmail.com', 1475289635, '1784 Joan Falls', 'East Millie', 15520, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Cruz', 'Kassulke', 'Cruz.Kassulke83@yahoo.com', 2156936557, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
-('test', 'user', 'test@gmail.com', 5742589635, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
+('test', 'user', 'user@gmail.com', 5742589635, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
 
 -- all password fields is password run through the hash function
 INSERT INTO tradesmen (first_name, last_name, phone, email, password) values ('Anissa', 'Breitenberg', 5874529558,' Breitenberg@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
@@ -18,7 +18,8 @@ INSERT INTO tradesmen (first_name, last_name, phone, email, password) values ('A
 ('Ollie', 'Orn', 1253696875, 'ollie@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Johan', 'Osinski', 4052100047, 'josinski@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Deshaun', 'Gleason', 5487896354, 'Deshaun.Gleason@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
-('Myra', 'Lebsack', 5248578596, 'Myra_Lebsack@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
+('Myra', 'Lebsack', 5248578596, 'Myra_Lebsack@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('test', 'tradesmen', 8745698752, 'tradesmen@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
 
 -- new proejcts
 INSERT INTO projects(user_id, description, street_address,address_city, address_zip, address_country) VALUES (

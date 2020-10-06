@@ -6,7 +6,8 @@ INSERT INTO users (first_name, last_name, email, phone, street_address, address_
 ('Olivia', 'Hodges', 'olivia@gmail.com', 75485781542, '4692 Stephania Flat', 'East Clementland', 88374, 'United States of America','$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Gustavo', 'Salazar', 'gustavo.salazar@gmail.com', 6523657418, '185 Jenkins Crest', 'Laurinefort', 86937, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Estrella', 'Hettinger', 'Estrella50@hotmail.com', 1475289635, '1784 Joan Falls', 'East Millie', 15520, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
-('Cruz', 'Kassulke', 'Cruz.Kassulke83@yahoo.com', 2156936557, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
+('Cruz', 'Kassulke', 'Cruz.Kassulke83@yahoo.com', 2156936557, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('test', 'user', 'test@gmail.com', 5742589635, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
 
 -- all password fields is password run through the hash function
 INSERT INTO tradesmen (first_name, last_name, phone, email, password) values ('Anissa', 'Breitenberg', 5874529558,' Breitenberg@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),

@@ -43,7 +43,7 @@ router.post("/", async (req, res, next) => {
 		// we know user passes and create in DB and return as json
 		const user = await User.create(req.body);
 		const token = await user.authenticate(req.body.password);
-		return res.status(201).json({ user, token });
+		return res.status(201).json({ user, token, email: req.body.email });
 	} catch (e) {
 		return next(e);
 	}

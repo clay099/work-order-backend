@@ -9,7 +9,7 @@ router.post("/login/user", async (req, res, next) => {
 		let { password, email } = req.body;
 		let user = await User.getAll(email);
 		let token = await user.authenticate(password);
-		return res.json({ token, user_type: "user" });
+		return res.json({ token, user_type: "user", email });
 	} catch (e) {
 		return next(e);
 	}
@@ -20,7 +20,7 @@ router.post("/login/tradesmen", async (req, res, next) => {
 		let { password, email } = req.body;
 		let user = await Tradesman.getAll(email);
 		let token = await user.authenticate(password);
-		return res.json({ token, user_type: "tradesman" });
+		return res.json({ token, user_type: "tradesman", email });
 	} catch (e) {
 		return next(e);
 	}

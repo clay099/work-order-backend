@@ -20,7 +20,7 @@ router.post("/login/tradesmen", async (req, res, next) => {
 		let { password, email } = req.body;
 		let user = await Tradesman.getAll(email);
 		let token = await user.authenticate(password);
-		return res.json({ token, user_type: "tradesman", email });
+		return res.json({ token, user_type: "tradesmen", email });
 	} catch (e) {
 		return next(e);
 	}

@@ -1,16 +1,18 @@
 -- all password fields is password run through the hash function
-INSERT INTO users (first_name, last_name, email, phone, street_address, address_city, address_zip, address_country, password) values ('Carisa', 'Colvin',' cc@gmail.com', 3354259154, '93959 Maya Stravenue', 'Luciousland', 72488, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+INSERT INTO users (first_name, last_name, email, phone, street_address, address_city, address_zip, address_country, password) values ('test', 'user', 'user@gmail.com', 5742589635, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'), 
+('Carisa', 'Colvin','cc@gmail.com', 3354259154, '93959 Maya Stravenue', 'Luciousland', 72488, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Kelly', 'Obrien', 'kobrien@outlook.com', 9255245218,'200 Ara Mills', 'West Jaynemouth', 77260, 'United States of America','$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Shirley', 'Harper','theharper@yahoo.com', 3055785415, '21270 Tommie Falls', 'East Abelville', 67762, 'United States of America','$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Christopher', 'Smith', 'smithman@hotmail.com', 9257418548, '21444 Prudence Radial', 'Ernaside', 69920, 'United States of America','$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Olivia', 'Hodges', 'olivia@gmail.com', 75485781542, '4692 Stephania Flat', 'East Clementland', 88374, 'United States of America','$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Gustavo', 'Salazar', 'gustavo.salazar@gmail.com', 6523657418, '185 Jenkins Crest', 'Laurinefort', 86937, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Estrella', 'Hettinger', 'Estrella50@hotmail.com', 1475289635, '1784 Joan Falls', 'East Millie', 15520, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
-('Cruz', 'Kassulke', 'Cruz.Kassulke83@yahoo.com', 2156936557, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
-('test', 'user', 'user@gmail.com', 5742589635, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
+('Cruz', 'Kassulke', 'Cruz.Kassulke83@yahoo.com', 2156936557, '157 Tromp Creek', 'South Normastad', 84328, 'United States of America', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
 
 -- all password fields is password run through the hash function
-INSERT INTO tradesmen (first_name, last_name, phone, email, password) values ('Anissa', 'Breitenberg', 5874529558,' Breitenberg@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+INSERT INTO tradesmen (first_name, last_name, phone, email, password) values 
+('test', 'tradesmen', 8745698752, 'tradesmen@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
+('Anissa', 'Breitenberg', 5874529558,' Breitenberg@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Nicklaus', 'Dickinson', 8741259638, 'Nicklaus.dickinson@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Pietro', 'Stamm',1247583695, 'pietro@hotmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Nolan', 'Anderson', 2565879968, 'nolan@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
@@ -18,8 +20,8 @@ INSERT INTO tradesmen (first_name, last_name, phone, email, password) values ('A
 ('Ollie', 'Orn', 1253696875, 'ollie@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Johan', 'Osinski', 4052100047, 'josinski@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
 ('Deshaun', 'Gleason', 5487896354, 'Deshaun.Gleason@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
-('Myra', 'Lebsack', 5248578596, 'Myra_Lebsack@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly'),
-('test', 'tradesmen', 8745698752, 'tradesmen@gmail.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly');
+('Myra', 'Lebsack', 5248578596, 'Myra_Lebsack@yahoo.com', '$2b$12$MsNomKWMiOK24jJir.ASfO/mHwNHKVcOU/wtzdIh3GMDMQ7Gxvxly')
+;
 
 -- new proejcts
 INSERT INTO projects(user_id, description, street_address,address_city, address_zip, address_country) VALUES (
@@ -62,3 +64,11 @@ INSERT INTO projects(user_id, description, street_address,address_city, address_
 
   INSERT INTO photos(project_id, photo_link, description, after, user_id) VALUES (8, 'https://secure.img1-fg.wfcdn.com/im/38471540/resize-h800%5Ecompr-r85/1096/109651865/11+Piece+Rattan+Sofa+Seating+Group+with+Cushions.jpg', 'Patio after reno', TRUE, 4), 
   (8, 'https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1500/at%2FVida_Cornelious_before_tagged','Patio before shot', FALSE, 4);
+
+  -- project bids
+INSERT INTO bids(project_id, tradesmen_id, bid) VALUES (
+  1, 1, 500),
+  (2,1,2000),
+  (2,2,2000),
+  (1,3,10000),
+  (1,4,2500);

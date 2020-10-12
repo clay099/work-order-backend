@@ -43,7 +43,7 @@ class Bid extends baseModel {
 	/** get all bids */
 	static async all() {
 		const result = await db.query(
-			`SELECT b.bid, t.first_name, t.last_name, b.tradesmen_id, b.project_id
+			`SELECT b.id, b.bid, t.first_name, t.last_name, b.tradesmen_id, b.project_id
       FROM bids b
       LEFT JOIN tradesmen t 
       ON t.id=b.tradesmen_id
@@ -60,7 +60,7 @@ class Bid extends baseModel {
 	/** get all bids by projects */
 	static async getProjectBids(id, user) {
 		const result = await db.query(
-			`SELECT b.bid, t.first_name, t.last_name, b.tradesmen_id, b.project_id
+			`SELECT b.id b.bid, t.first_name, t.last_name, b.tradesmen_id, b.project_id
       FROM bids b
       LEFT JOIN tradesmen t 
       ON t.id=b.tradesmen_id

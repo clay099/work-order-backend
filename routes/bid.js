@@ -8,6 +8,16 @@ const { ensureLoggedIn } = require("../middleware/auth");
 
 const router = new express.Router();
 
+/**GET / => {bids: bidData}  */
+router.get("/", ensureLoggedIn, async (req, res, next) => {
+	try {
+		const bids = await Bid.all();
+		return res.json({ bids });
+	} catch (e) {
+		return next(e);
+	}
+});
+
 /** POST / {bidData, _token: tokenDate} => {bid: newBid} */
 router.post("/", ensureLoggedIn, async (req, res, next) => {
 	try {
@@ -38,7 +48,7 @@ router.post("/", ensureLoggedIn, async (req, res, next) => {
 	}
 });
 
-/** GET /[projectId] => {bid: bidData} */
+/** GET /[projectId] => {bids: bidData} */
 router.get("/:projectId", ensureLoggedIn, async (req, res, next) => {
 	try {
 		// short circuit if user is not a user

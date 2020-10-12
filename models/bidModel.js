@@ -40,6 +40,23 @@ class Bid extends baseModel {
 		return new Bid(bidData);
 	}
 
+	/** get all bids */
+	static async all() {
+		const result = await db.query(
+			`SELECT b.bid, t.first_name, t.last_name, b.tradesmen_id, b.project_id
+      FROM bids b
+      LEFT JOIN tradesmen t 
+      ON t.id=b.tradesmen_id
+      ORDER BY project_id`
+		);
+
+		if (result.rows[0] === undefined) {
+			const err = new ExpressError(`Could not find any bids`, 404);
+			throw err;
+		}
+		return result.rows.map((b) => new Bid(b));
+	}
+
 	/** get all bids by projects */
 	static async getProjectBids(id, user) {
 		const result = await db.query(
@@ -58,7 +75,6 @@ class Bid extends baseModel {
 			);
 			throw err;
 		}
-		console.log(result.rows[0]);
 		return result.rows.map((b) => new Bid(b));
 	}
 

@@ -109,14 +109,10 @@ router.delete("/:id", ensureLoggedIn, async (req, res, next) => {
 		if (req.user.user_type !== "tradesman") {
 			return next(err);
 		}
-		console.log("after usertype");
 
 		let b = await Bid.get(req.params.id);
-		console.log(b);
 		// check that tradesmen can only change their owner bid
 		if (req.user.id !== b.tradesmen_id) {
-			console.log(req.user.id);
-			console.log(b.tradesmen_id);
 			return next(err);
 		}
 

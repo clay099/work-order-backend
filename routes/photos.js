@@ -1,6 +1,6 @@
 const express = require("express");
 const ExpressError = require("../helpers/expressError");
-const Photo = require("../models/PhotoModel");
+const Photo = require("../models/photoModel");
 const jsonschema = require("jsonschema");
 const photoSchema = require("../schema/photoSchema.json");
 const updatePhotoSchema = require("../schema/updatePhotoSchema.json");

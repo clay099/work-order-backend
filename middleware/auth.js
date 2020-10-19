@@ -7,7 +7,7 @@ const User = require("../models/userModel");
 const Tradesman = require("../models/tradesmanModel");
 const Projects = require("../models/projectModel");
 const Chat = require("../models/chatModel");
-const Photo = require("../models/PhotoModel");
+const Photo = require("../models/photoModel");
 
 /** Middleware: Authenticate user. */
 

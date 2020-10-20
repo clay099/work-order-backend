@@ -15,6 +15,7 @@ class Tradesman extends baseModel {
 		email,
 		phone,
 		password,
+		review_comments,
 		rating,
 		is_blocked,
 	}) {
@@ -25,6 +26,7 @@ class Tradesman extends baseModel {
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
+		this.review_comments = review_comments;
 		this.rating = rating;
 		this.is_blocked = is_blocked;
 	}
@@ -69,9 +71,12 @@ class Tradesman extends baseModel {
 	/** get tradesman by id */
 	static async get(id) {
 		const result = await db.query(
-			`SELECT id, first_name, last_name, email, phone
-      FROM tradesmen
-      WHERE id=$1`,
+			`SELECT id, first_name, last_name, email, phone, ARRAY_AGG(review_comment) AS review_comments, AVG(review_rating) AS rating
+      FROM tradesmen t
+      LEFT JOIN reviews r
+      ON t.id=r.tradesmen_id
+      WHERE id=$1
+      GROUP BY id`,
 			[id]
 		);
 

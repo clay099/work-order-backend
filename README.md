@@ -50,17 +50,21 @@ There will be two types of users for this application:
 -   Users will be able post a job and have an market place bid (timed) to complete the project - project address is kept secret until tradesmen has been selected
 -   Once the market has been closed users will be sent a list of candidates for their project, including price to complete, past jobs, past ratings etc
 -   Users will be able to select the tradesmen to proceed with.
--   Onced matched the tradesmen will be sent a link with the work address in addition through a web-socket a work-order instant chat will be set up to allow for instant communication
--   When the project is complete the user will rate the work and upload photos of the completed project(photos can also be uploaded by the tradesmen)
+-   When the project is complete the user will rate the work of the completed project
+
+Additional Features to be added in the future:
+
+-   Once matched the tradesmen will be sent a link with the work address in addition through a web-socket a work-order instant chat will be set up to allow for instant communication
+-   When the project is complete the user will upload photos of the completed project(photos can also be uploaded by the tradesmen)
 
 2. Tradesmen
 
 -   These users will be able to login and bid for potential projects
--   When selected they will be sent a work order and instant chat (see above)
+-   When selected they will be sent a work order
 
 ## Data
 
-As this project will be completed as a peer to peer work-order there will be no third party database to connect to however the project will be seeded with General Users and Tradesmen
+As this project will be completed as a peer-to-peer work-order there will be no third party database to connect to however the project will be seeded with General Users and Tradesmen
 
 ## Sensitive info
 

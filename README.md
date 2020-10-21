@@ -14,7 +14,7 @@ The tech stack will be split into two:
 -   react
 -   redux
 
-2. The back-end API (THIS REPO) use:
+2. The back-end API (THIS REPO & [server link](https://github.com/clay099/work-order-backend)) use:
 
 -   node
 -   express

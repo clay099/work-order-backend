@@ -9,7 +9,7 @@ Tradesmen will be able to bid on jobs they want to complete.
 
 The tech stack will be split into two:
 
-1. The front-end:
+1. The front-end ([project live server](https://project-freelance.netlify.app/) &  [github link](https://github.com/clay099/work-order-frontend)):
 
 -   react
 -   redux

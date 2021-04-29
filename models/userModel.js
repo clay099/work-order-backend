@@ -119,9 +119,11 @@ class User extends baseModel {
 
 	/** get all user details by email */
 	static async getAll(email) {
+		console.log({ email });
 		const result = await db.query(`SELECT * FROM users WHERE email=$1`, [
 			email,
 		]);
+		console.log({ result });
 
 		const user = result.rows[0];
 

@@ -8,12 +8,9 @@ router.post("/login/user", async (req, res, next) => {
 	try {
 		let { password, email } = req.body;
 		let user = await User.getAll(email);
-		console.log({ user });
 		let token = await user.authenticate(password);
-		console.log({ token });
 		return res.json({ token, user_type: "user", email, id: user.id });
 	} catch (e) {
-		console.log({ error: e });
 		return next(e);
 	}
 });

@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 
 const cors = require("cors");
-app.use(cors({ optionsSuccessStatus: 200 }));
+app.use(cors({ origin: true }));
 
 const ExpressError = require("./helpers/expressError");
 

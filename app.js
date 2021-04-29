@@ -4,11 +4,7 @@ const app = express();
 app.use(express.json());
 
 const cors = require("cors");
-const corsOptions = {
-	origin: ["http://localhost:3000", "https://project-freelance.netlify.app"],
-	credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors({ optionsSuccessStatus: 200 }));
 
 const ExpressError = require("./helpers/expressError");
 
